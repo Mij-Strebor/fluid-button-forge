@@ -17,15 +17,17 @@
  * @version 1.0.0
  */
 
+namespace JimRForge\FluidButtonForge;
+
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
 }
 
 /**
- * Fluid Button Forge - Complete Unified Class
+ * Fluid Button Forge - Main Plugin Class
  */
-class ButtonDesignCalculator
+class FluidButtonForge
 {
     // ========================================================================
     // CORE CONSTANTS SYSTEM
@@ -3650,7 +3652,10 @@ return `
 // INITIALIZATION
 // ========================================================================
 
+/**
+ * Initialize the plugin
+ * Only load in WordPress admin
+ */
 if (is_admin()) {
-    global $buttonDesignCalculator;
-    $buttonDesignCalculator = new ButtonDesignCalculator();
+    new FluidButtonForge();
 }
