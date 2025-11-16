@@ -1,0 +1,205 @@
+/**
+ * Layout
+ *
+ * Layout and grid systems for Fluid Button Forge
+ *
+ * @package FluidButtonForge
+ * @version 1.1.0
+ */
+
+/* ============================================================================
+   CONTAINER SYSTEM
+   ========================================================================= */
+
+/*
+Container
+
+Main content container with max-width constraint
+
+Markup:
+<div class="header-section">
+    Content constrained to 1280px
+</div>
+
+Styleguide: Layout.Container
+*/
+.header-section,
+.main-panel-container,
+.full-width-styling,
+.about-panel-container {
+    width: var(--container-max);
+    margin: 0 auto;
+}
+
+/*
+Panel Containers
+
+Styled containers with background and borders
+
+Styleguide: Layout.PanelContainers
+*/
+.about-panel-container,
+.main-panel-container,
+.full-width-styling {
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--clr-light), var(--clr-card-bg));
+    border: var(--border-base) solid var(--clr-primary);
+    border-radius: var(--br-lg);
+    box-shadow: var(--shadow-xl);
+}
+
+.about-panel-container {
+    margin: var(--sp-6) 0;
+}
+
+.full-width-styling {
+    margin-bottom: var(--sp-6);
+}
+
+.major-panel-content {
+    padding: var(--sp-5);
+    background: var(--clr-light);
+}
+
+/* ============================================================================
+   GRID SYSTEMS
+   ========================================================================= */
+
+/*
+Main Grid
+
+Single column grid layout for main content areas
+
+Markup:
+<div class="fcc-main-grid">
+    <div>Grid item 1</div>
+    <div>Grid item 2</div>
+</div>
+
+Styleguide: Layout.Grids.Main
+*/
+.fcc-main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--sp-6);
+    margin-bottom: var(--sp-6);
+}
+
+/*
+Grid Item
+
+Flex container for form elements
+
+Markup:
+<div class="grid-item">
+    <label>Label</label>
+    <input type="text">
+</div>
+
+Styleguide: Layout.Grids.Item
+*/
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* ============================================================================
+   PREVIEW LAYOUT
+   ========================================================================= */
+
+/*
+Preview Header
+
+Section header for preview panels
+
+Styleguide: Layout.Preview.Header
+*/
+.fcc-preview-header-row {
+    text-align: left;
+    margin-bottom: var(--sp-5);
+    border-bottom: var(--border-base) solid var(--clr-secondary);
+    padding-bottom: var(--sp-3);
+}
+
+.fcc-preview-header-row h2 {
+    color: var(--clr-primary) !important;
+    font-family: var(--font-family) !important;
+    font-size: var(--fs-xxl) !important;
+    font-weight: var(--fw-bold) !important;
+    margin: 0 !important;
+    text-shadow: 1px 1px 2px rgba(61, 47, 31, 0.15) !important;
+    border: none !important;
+}
+
+/* ============================================================================
+   CSS OUTPUT LAYOUT
+   ========================================================================= */
+
+/*
+CSS Header
+
+Header bar for CSS output sections
+
+Markup:
+<div class="fcc-css-header">
+    <h3>Generated CSS</h3>
+    <button class="fcc-copy-btn">copy</button>
+</div>
+
+Styleguide: Layout.CSS
+*/
+.fcc-css-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--sp-3);
+}
+
+/* ============================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================= */
+
+/*
+Mobile Layout
+
+Layout adjustments for tablets and mobile devices
+
+Styleguide: Layout.Responsive
+*/
+@media (max-width: 768px) {
+    .fcc-main-grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-4);
+    }
+
+    .fcc-info-content div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: var(--sp-4) !important;
+    }
+
+    .header-section,
+    .main-panel-container,
+    .full-width-styling,
+    .about-panel-container {
+        width: 100%;
+        padding: 0 var(--sp-4);
+    }
+}
+
+/* ============================================================================
+   VISIBILITY UTILITIES
+   ========================================================================= */
+
+/*
+Show Main Container
+
+Ensures main container is visible (overrides loading state)
+
+Styleguide: Layout.Visibility
+*/
+#bdc-main-container {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}

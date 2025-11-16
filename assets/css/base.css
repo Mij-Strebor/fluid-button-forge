@@ -1,0 +1,238 @@
+/**
+ * Base Styles
+ *
+ * Global styles and resets for Fluid Button Forge admin pages
+ *
+ * @package FluidButtonForge
+ * @version 1.1.0
+ */
+
+/* ============================================================================
+   Global Overrides for WordPress Admin
+   ========================================================================= */
+
+/*
+Global Body
+
+Applies the JimRForge brand background color to the WordPress admin body
+
+Markup:
+<body>
+  ...admin content...
+</body>
+
+Styleguide: Base.Global
+*/
+body {
+    background: var(--clr-page-bg) !important;
+    color: var(--clr-txt) !important;
+}
+
+.wp-admin {
+    background: var(--clr-page-bg) !important;
+}
+
+#wpbody-content {
+    background: var(--clr-page-bg) !important;
+}
+
+.wrap {
+    background: var(--clr-page-bg) !important;
+}
+
+/*
+Hide WordPress Footer
+
+Hides the WordPress admin footer on plugin pages for cleaner presentation
+
+Styleguide: Base.Footer
+*/
+#wpfooter,
+.wp-footer,
+#footer-thankyou {
+    display: none !important;
+}
+
+/* ============================================================================
+   Typography
+   ========================================================================= */
+
+/*
+Headings
+
+All heading styles following JimRForge standards
+
+Markup:
+<h1>Main Page Title</h1>
+<h2>Section Heading</h2>
+
+Weight: 1
+
+Styleguide: Base.Typography.Headings
+*/
+h1 {
+    color: var(--clr-primary) !important;
+    font-family: var(--font-family);
+    font-size: var(--fs-xxxl);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+    text-shadow: 1px 1px 2px rgba(61, 47, 31, 0.15);
+}
+
+h2 {
+    color: var(--clr-primary) !important;
+    font-family: var(--font-family);
+    font-size: var(--fs-xxl);
+    font-weight: var(--fw-bold);
+    line-height: var(--lh-tight);
+    text-shadow: 1px 1px 2px rgba(61, 47, 31, 0.15);
+    margin: 0 0 var(--sp-5) 0;
+    border-bottom: var(--border-base) solid var(--clr-secondary);
+    padding-bottom: var(--sp-2);
+}
+
+/* ============================================================================
+   Animations & Keyframes
+   ========================================================================= */
+
+/*
+Shake Animation
+
+Used for validation errors to draw attention
+
+Styleguide: Base.Animations.Shake
+*/
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-4px);
+    }
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+/*
+Pulse Warning Animation
+
+Used for corrected validation values
+
+Styleguide: Base.Animations.PulseWarning
+*/
+@keyframes pulse-warning {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/*
+Pulse Animation
+
+Used for loading states and processing indicators
+
+Styleguide: Base.Animations.Pulse
+*/
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/*
+Spin Animation
+
+Used for loading spinners
+
+Styleguide: Base.Animations.Spin
+*/
+@keyframes fcc-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================================================
+   Loading States
+   ========================================================================= */
+
+/*
+Loading Spinner
+
+Animated spinner for loading states
+
+Markup:
+<div class="fcc-loading-spinner"></div>
+
+Styleguide: Base.Loading
+*/
+.fcc-loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid var(--clr-light);
+    border-top: 5px solid var(--clr-accent);
+    border-right: 5px solid var(--clr-btn-hover);
+    border-radius: var(--br-full);
+    animation: fcc-spin 1.2s linear infinite;
+    margin: 0 auto var(--sp-6);
+    box-shadow: var(--shadow-md);
+}
+
+/* ============================================================================
+   Utility Classes
+   ========================================================================= */
+
+/*
+Screen Reader Only
+
+Visually hides content but keeps it accessible to screen readers
+
+Markup:
+<span class="sr-only">Hidden from visual users</span>
+
+Styleguide: Base.Utilities.ScreenReader
+*/
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/*
+Validation States
+
+Visual feedback for form validation
+
+.validation-error      - Shows input has an error (red border with shake)
+.validation-corrected  - Shows input was auto-corrected (orange border with pulse)
+
+Markup:
+<input type="number" class="fcc-input validation-error">
+<input type="number" class="fcc-input validation-corrected">
+
+Styleguide: Base.Utilities.Validation
+*/
+.validation-error {
+    border-color: var(--clr-danger) !important;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+    animation: shake 0.5s ease-in-out;
+}
+
+.validation-corrected {
+    border-color: var(--clr-warning) !important;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2) !important;
+    animation: pulse-warning 1s ease-in-out;
+}
