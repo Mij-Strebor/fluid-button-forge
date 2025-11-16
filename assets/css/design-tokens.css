@@ -100,16 +100,16 @@
        GRAY SCALE (for UI elements)
        ======================================================================== */
 
-    --jimr-gray-50: #f8fafc;
-    --jimr-gray-100: #f1f5f9;
-    --jimr-gray-200: #e2e8f0;
-    --jimr-gray-300: #cbd5e1;
-    --jimr-gray-400: #94a3b8;
-    --jimr-gray-500: #64748b;
-    --jimr-gray-600: #475569;
-    --jimr-gray-700: #334155;
-    --jimr-gray-800: #1e293b;
-    --jimr-gray-900: #0f172a;
+    --clr-gray-50: #f8fafc;
+    --clr-gray-100: #f1f5f9;
+    --clr-gray-200: #e2e8f0;
+    --clr-gray-300: #cbd5e1;
+    --clr-gray-400: #94a3b8;
+    --clr-gray-500: #64748b;
+    --clr-gray-600: #475569;
+    --clr-gray-700: #334155;
+    --clr-gray-800: #1e293b;
+    --clr-gray-900: #0f172a;
 
     /* ========================================================================
        TYPOGRAPHY SCALE

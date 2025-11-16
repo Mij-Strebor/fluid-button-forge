@@ -24,22 +24,22 @@ The default button style following JimRForge standards:
 - 8px border radius
 - Up-and-left hover transform
 
-.fcc-btn           - Primary gold button
-.fcc-btn-primary   - Blue button for primary actions
-.fcc-btn-danger    - Red button for destructive actions
-.fcc-btn-ghost     - Gray button for secondary actions
+.fbf-btn           - Primary gold button
+.fbf-btn-primary   - Blue button for primary actions
+.fbf-btn-danger    - Red button for destructive actions
+.fbf-btn-ghost     - Gray button for secondary actions
 
 Markup:
-<button class="fcc-btn">add size</button>
-<button class="fcc-btn fcc-btn-primary">save settings</button>
-<button class="fcc-btn fcc-btn-danger">delete</button>
-<button class="fcc-btn fcc-btn-ghost">cancel</button>
+<button class="fbf-btn">add size</button>
+<button class="fbf-btn fbf-btn-primary">save settings</button>
+<button class="fbf-btn fbf-btn-danger">delete</button>
+<button class="fbf-btn fbf-btn-ghost">cancel</button>
 
 Weight: 1
 
 Styleguide: Components.Buttons
 */
-.fcc-btn {
+.fbf-btn {
     background: var(--clr-accent);
     color: var(--clr-btn-txt);
     border: none;
@@ -61,28 +61,28 @@ Styleguide: Components.Buttons
     text-decoration: none;
 }
 
-.fcc-btn:hover {
+.fbf-btn:hover {
     background: var(--clr-btn-hover);
     transform: translate(-2px, -2px);        /* UP and LEFT */
     box-shadow: var(--shadow-lg);
 }
 
-.fcc-btn:active {
+.fbf-btn:active {
     transform: translate(-1px, -1px);        /* Less lift when pressed */
     box-shadow: var(--shadow-md);
 }
 
-.fcc-btn:disabled {
-    background: var(--jimr-gray-300);
-    color: var(--jimr-gray-100);
+.fbf-btn:disabled {
+    background: var(--clr-gray-300);
+    color: var(--clr-gray-100);
     opacity: var(--opacity-70);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
 }
 
-.fcc-btn:focus,
-.fcc-btn:focus-visible {
+.fbf-btn:focus,
+.fbf-btn:focus-visible {
     outline: 2px solid var(--clr-accent);
     outline-offset: 2px;
 }
@@ -94,13 +94,13 @@ Blue button for important primary actions
 
 Styleguide: Components.Buttons.Primary
 */
-.fcc-btn-primary {
+.fbf-btn-primary {
     background: var(--clr-info);
     color: var(--clr-white);
     border-color: var(--clr-info);
 }
 
-.fcc-btn-primary:hover {
+.fbf-btn-primary:hover {
     background: var(--clr-info-dark);
 }
 
@@ -111,13 +111,13 @@ Red button for destructive actions (delete, remove, clear)
 
 Styleguide: Components.Buttons.Danger
 */
-.fcc-btn-danger {
+.fbf-btn-danger {
     background: var(--clr-danger);
     color: var(--clr-white);
     border-color: var(--clr-danger-dark);
 }
 
-.fcc-btn-danger:hover {
+.fbf-btn-danger:hover {
     background: var(--clr-danger-dark);
 }
 
@@ -128,14 +128,14 @@ Gray button for secondary/cancel actions
 
 Styleguide: Components.Buttons.Ghost
 */
-.fcc-btn-ghost {
-    background: var(--jimr-gray-500);
+.fbf-btn-ghost {
+    background: var(--clr-gray-500);
     color: var(--clr-white);
-    border-color: var(--jimr-gray-600);
+    border-color: var(--clr-gray-600);
 }
 
-.fcc-btn-ghost:hover {
-    background: var(--jimr-gray-600);
+.fbf-btn-ghost:hover {
+    background: var(--clr-gray-600);
 }
 
 /*
@@ -145,7 +145,7 @@ Special styling for copy buttons with visual feedback
 
 Styleguide: Components.Buttons.Copy
 */
-.fcc-copy-btn {
+.fbf-copy-btn {
     background: var(--clr-accent);
     color: var(--clr-btn-txt);
     border: none;
@@ -169,7 +169,7 @@ Styleguide: Components.Buttons.Copy
     justify-content: center;
 }
 
-.fcc-copy-btn:hover {
+.fbf-copy-btn:hover {
     background: var(--clr-btn-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
@@ -181,21 +181,21 @@ Button Groups
 Container for multiple buttons
 
 Markup:
-<div class="fcc-table-buttons">
-    <button class="fcc-btn">add size</button>
-    <button class="fcc-btn fcc-btn-danger">clear all</button>
+<div class="fbf-table-buttons">
+    <button class="fbf-btn">add size</button>
+    <button class="fbf-btn fbf-btn-danger">clear all</button>
 </div>
 
 Styleguide: Components.Buttons.Groups
 */
-.fcc-table-buttons,
-.fcc-css-buttons {
+.fbf-table-buttons,
+.fbf-css-buttons {
     display: flex;
     gap: var(--sp-2);
     align-items: center;
 }
 
-.fcc-table-buttons {
+.fbf-table-buttons {
     justify-content: flex-end;
 }
 
@@ -208,12 +208,12 @@ Text Input
 
 Standard text and number inputs
 
-.fcc-input         - Base input class
+.fbf-input         - Base input class
 .component-input   - Alias for consistency
 .component-select  - Select dropdown styling
 
 Markup:
-<input type="number" class="fcc-input" value="16">
+<input type="number" class="fbf-input" value="16">
 <input type="text" class="component-input" value="btn-md">
 <select class="component-select">
     <option>Option 1</option>
@@ -224,7 +224,7 @@ Weight: 2
 
 Styleguide: Components.Inputs
 */
-.fcc-input,
+.fbf-input,
 .component-input,
 .component-select {
     height: 40px;
@@ -241,7 +241,7 @@ Styleguide: Components.Inputs
     font-family: var(--font-family);
 }
 
-.fcc-input:focus,
+.fbf-input:focus,
 .component-input:focus,
 .component-select:focus {
     outline: none;
@@ -259,7 +259,7 @@ Styled select element with custom arrow
 Styleguide: Components.Inputs.Select
 */
 .component-select,
-select.fcc-input {
+select.fbf-input {
     cursor: pointer;
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236d4c2f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -317,7 +317,7 @@ Panel
 Container for grouped content
 
 Markup:
-<div class="fcc-panel">
+<div class="fbf-panel">
     <h2>Panel Title</h2>
     <p>Panel content</p>
 </div>
@@ -326,7 +326,7 @@ Weight: 3
 
 Styleguide: Components.Panels
 */
-.fcc-panel {
+.fbf-panel {
     background: var(--clr-light);
     padding: var(--sp-5);
     border-radius: var(--br-lg);
@@ -340,14 +340,14 @@ Collapsible Panel Header
 
 Expandable/collapsible section header
 
-.fcc-info-toggle         - Toggle button
-.fcc-info-toggle.expanded - Expanded state
-.fcc-toggle-icon         - Arrow icon
+.fbf-info-toggle         - Toggle button
+.fbf-info-toggle.expanded - Expanded state
+.fbf-toggle-icon         - Arrow icon
 
 Markup:
-<button class="fcc-info-toggle expanded">
+<button class="fbf-info-toggle expanded">
     <span>Panel Title</span>
-    <span class="fcc-toggle-icon">▼</span>
+    <span class="fbf-toggle-icon">▼</span>
 </button>
 <div class="collapsible-text expanded">
     Panel content
@@ -355,7 +355,7 @@ Markup:
 
 Styleguide: Components.Panels.Collapsible
 */
-.fcc-info-toggle {
+.fbf-info-toggle {
     width: 100%;
     background: var(--clr-secondary);
     color: var(--clr-header-text) !important;
@@ -372,19 +372,19 @@ Styleguide: Components.Panels.Collapsible
     font-family: var(--font-family);
 }
 
-.fcc-info-toggle:hover {
+.fbf-info-toggle:hover {
     background: var(--clr-primary);
     color: var(--clr-header-text) !important;
     transform: translateY(-1px);
 }
 
-.fcc-toggle-icon {
+.fbf-toggle-icon {
     transition: transform 0.3s ease;
     font-size: var(--fs-md);
     color: var(--clr-header-text) !important;
 }
 
-.fcc-info-toggle.expanded .fcc-toggle-icon {
+.fbf-info-toggle.expanded .fbf-toggle-icon {
     transform: rotate(180deg);
 }
 
@@ -463,14 +463,14 @@ Preview Grid
 Two-column layout for min/max previews
 
 Markup:
-<div class="fcc-preview-grid">
-    <div class="fcc-preview-column">...</div>
-    <div class="fcc-preview-column">...</div>
+<div class="fbf-preview-grid">
+    <div class="fbf-preview-column">...</div>
+    <div class="fbf-preview-column">...</div>
 </div>
 
 Styleguide: Components.Preview
 */
-.fcc-preview-grid {
+.fbf-preview-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: var(--sp-6) !important;
@@ -479,20 +479,20 @@ Styleguide: Components.Preview
 }
 
 @media (max-width: 1024px) {
-    .fcc-preview-grid {
+    .fbf-preview-grid {
         grid-template-columns: 1fr !important;
         gap: var(--sp-4) !important;
     }
 }
 
-.fcc-preview-column {
+.fbf-preview-column {
     display: flex;
     flex-direction: column;
     gap: var(--sp-3);
     min-width: 0;
 }
 
-.fcc-preview-column-header {
+.fbf-preview-column-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -503,7 +503,7 @@ Styleguide: Components.Preview
     border: var(--border-thin) solid var(--clr-secondary);
 }
 
-.fcc-preview-column-header h3 {
+.fbf-preview-column-header h3 {
     color: var(--clr-secondary) !important;
     font-size: var(--fs-lg) !important;
     font-weight: var(--fw-semibold) !important;
@@ -512,7 +512,7 @@ Styleguide: Components.Preview
     font-family: var(--font-family);
 }
 
-.fcc-scale-indicator {
+.fbf-scale-indicator {
     background: var(--clr-secondary);
     color: var(--clr-header-text);
     border: var(--border-thin) solid var(--clr-primary);

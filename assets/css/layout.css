@@ -71,14 +71,14 @@ Main Grid
 Single column grid layout for main content areas
 
 Markup:
-<div class="fcc-main-grid">
+<div class="fbf-main-grid">
     <div>Grid item 1</div>
     <div>Grid item 2</div>
 </div>
 
 Styleguide: Layout.Grids.Main
 */
-.fcc-main-grid {
+.fbf-main-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--sp-6);
@@ -115,14 +115,14 @@ Section header for preview panels
 
 Styleguide: Layout.Preview.Header
 */
-.fcc-preview-header-row {
+.fbf-preview-header-row {
     text-align: left;
     margin-bottom: var(--sp-5);
     border-bottom: var(--border-base) solid var(--clr-secondary);
     padding-bottom: var(--sp-3);
 }
 
-.fcc-preview-header-row h2 {
+.fbf-preview-header-row h2 {
     color: var(--clr-primary) !important;
     font-family: var(--font-family) !important;
     font-size: var(--fs-xxl) !important;
@@ -142,14 +142,14 @@ CSS Header
 Header bar for CSS output sections
 
 Markup:
-<div class="fcc-css-header">
+<div class="fbf-css-header">
     <h3>Generated CSS</h3>
-    <button class="fcc-copy-btn">copy</button>
+    <button class="fbf-copy-btn">copy</button>
 </div>
 
 Styleguide: Layout.CSS
 */
-.fcc-css-header {
+.fbf-css-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -168,12 +168,12 @@ Layout adjustments for tablets and mobile devices
 Styleguide: Layout.Responsive
 */
 @media (max-width: 768px) {
-    .fcc-main-grid {
+    .fbf-main-grid {
         grid-template-columns: 1fr;
         gap: var(--sp-4);
     }
 
-    .fcc-info-content div[style*="grid-template-columns: 1fr 1fr"] {
+    .fbf-info-content div[style*="grid-template-columns: 1fr 1fr"] {
         grid-template-columns: 1fr !important;
         gap: var(--sp-4) !important;
     }

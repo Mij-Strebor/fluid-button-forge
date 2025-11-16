@@ -68,7 +68,7 @@ Styleguide: ButtonCards.Card
     }
 }
 
-.fcc-panel [style*="gap: 24px"] > .button-card {
+.fbf-panel [style*="gap: 24px"] > .button-card {
     margin: 0 !important;
 }
 
@@ -314,9 +314,9 @@ Styleguide: ButtonCards.StateButtons
 }
 
 .card-state-button {
-    background: var(--jimr-gray-200);
-    color: var(--jimr-gray-700);
-    border: var(--border-thin) solid var(--jimr-gray-300);
+    background: var(--clr-gray-200);
+    color: var(--clr-gray-700);
+    border: var(--border-thin) solid var(--clr-gray-300);
     padding: 6px var(--sp-2);
     border-radius: var(--br-sm);
     font-size: 11px;
@@ -328,7 +328,7 @@ Styleguide: ButtonCards.StateButtons
 }
 
 .card-state-button:hover {
-    background: var(--jimr-gray-300);
+    background: var(--clr-gray-300);
 }
 
 .card-state-button.active {
