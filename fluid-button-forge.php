@@ -38,6 +38,10 @@ class FluidButtonForge
     const PLUGIN_SLUG = 'fluid-button-forge';
     const NONCE_ACTION = 'fluid_button_nonce';
 
+    // Plugin Paths
+    private static $plugin_dir;
+    private static $plugin_url;
+
     // Validation Ranges
     const MIN_BUTTON_SIZE_RANGE = [1, 200];
     const VIEWPORT_RANGE = [200, 5000];
@@ -75,6 +79,10 @@ class FluidButtonForge
 
     public function __construct()
     {
+        // Initialize plugin paths
+        self::$plugin_dir = plugin_dir_path(__FILE__);
+        self::$plugin_url = plugin_dir_url(__FILE__);
+
         $this->init_defaults();
         $this->init_hooks();
     }
@@ -192,41 +200,13 @@ class FluidButtonForge
     // ========================================================================
 
     /**
-     * Add admin menu page
+     * Add admin menu page under Tools
      */
     public function add_admin_menu()
     {
-        // Check if J Forge parent menu exists, create if needed
-        global $menu;
-        $j_forge_exists = false;
-
-        if (is_array($menu)) {
-            foreach ($menu as $menu_item) {
-                if (isset($menu_item[0]) && $menu_item[0] === 'J Forge') {
-                    $j_forge_exists = true;
-                    break;
-                }
-            }
-        }
-
-        // Create J Forge parent menu if it doesn't exist
-        if (!$j_forge_exists) {
-            add_menu_page(
-                'J Forge',                    // Page title
-                'J Forge',                    // Menu title
-                'manage_options',             // Capability
-                'j-forge',                    // Menu slug
-                '__return_null',              // No callback (parent only)
-                'dashicons-admin-tools',      // Icon
-                12                            // Position
-            );
-        }
-
-        // Add Fluid Font Forge as submenu under J Forge
-        add_submenu_page(
-            'j-forge',                       // Parent slug
-            'Fluid Button Forge',              // Page title
-            'Fluid Button',                    // Menu title
+        add_management_page(
+            'Fluid Button Forge',            // Page title
+            'Fluid Button Forge',            // Menu title
             'manage_options',                // Capability
             self::PLUGIN_SLUG,               // Menu slug
             [$this, 'render_admin_page']     // Callback
@@ -234,6 +214,10 @@ class FluidButtonForge
     }
 
 
+    /**
+     * Enqueue plugin assets (CSS and JavaScript)
+     * Only loads on the plugin's admin page
+     */
     public function enqueue_assets()
     {
         $screen = get_current_screen();
@@ -242,15 +226,28 @@ class FluidButtonForge
             return;
         }
 
+        $css_url = self::$plugin_url . 'assets/css/';
+        $version = self::VERSION;
+
+        // Enqueue CSS files in dependency order
         wp_enqueue_style(
-            'button-design-tailwind',
-            'https://cdn.tailwindcss.com',
+            'fbf-admin-styles',
+            $css_url . 'admin-styles.css',
             [],
-            self::VERSION
+            $version
         );
 
+        wp_enqueue_style(
+            'fbf-forge-header',
+            $css_url . 'forge-header.css',
+            ['fbf-admin-styles'],
+            $version
+        );
+
+        // Enqueue WordPress utilities
         wp_enqueue_script('wp-util');
 
+        // Localize script with plugin data
         wp_localize_script('wp-util', 'buttonDesignAjax', [
             'nonce' => wp_create_nonce(self::NONCE_ACTION),
             'ajaxurl' => admin_url('admin-ajax.php'),
@@ -568,13 +565,17 @@ class FluidButtonForge
     // UNIFIED ASSET RENDERING
     // ========================================================================
 
+    /**
+     * Render inline assets in admin footer
+     * CSS is now external, this only renders JavaScript
+     */
     public function render_unified_assets()
     {
         if (!$this->is_button_design_page() || $this->assets_loaded) {
             return;
         }
 
-        $this->render_unified_css();
+        $this->render_inter_fonts();
         $this->render_basic_javascript();
 
         $this->assets_loaded = true;
@@ -585,985 +586,54 @@ class FluidButtonForge
         return isset($_GET['page']) && sanitize_text_field($_GET['page']) === self::PLUGIN_SLUG;
     }
 
-    private function render_unified_css()
+    /**
+     * Render Inter font @font-face declarations
+     */
+    private function render_inter_fonts()
     {
+        $font_url = self::$plugin_url . 'assets/fonts/';
     ?>
-        <style id="button-design-unified-styles">
-            :root {
-                /* Core JimRWeb Brand Colors */
-                --clr-primary: #3C2017;
-                --clr-secondary: #5C3324;
-                --clr-txt: #86400E;
-                --clr-accent: #FFD700;
-                --clr-page-bg: #E8D8C3;
-                --clr-card-bg: #F0E6DA;
-                --clr-btn-hover: #E5B929;
-                --clr-btn-txt: #9C0202;
-                --clr-btn-bdr: #DE0B0B;
-                --clr-light: #F5F1EC;
-                --clr-shadow: rgba(60, 32, 23, 0.15);
-                --clr-overlay: rgba(232, 216, 195, 0.95);
-                --clr-secondary-hover: #dcc7a8;
-                --clr-header-text: #FAF9F6;
-
-                /* Extended Utility Colors */
-                --jimr-success: #10b981;
-                --jimr-success-dark: #059669;
-                --clr-danger: #ef4444;
-                --clr-danger-dark: #dc2626;
-                --clr-info: #3b82f6;
-                --clr-info-dark: #1d4ed8;
-                --clr-warning: #f59e0b;
-                --clr-warning-dark: #d97706;
-
-                /* Gray Scale */
-                --jimr-gray-50: #f8fafc;
-                --jimr-gray-100: #f1f5f9;
-                --jimr-gray-200: #e2e8f0;
-                --jimr-gray-300: #cbd5e1;
-                --jimr-gray-400: #94a3b8;
-                --jimr-gray-500: #64748b;
-                --jimr-gray-600: #475569;
-                --jimr-gray-700: #334155;
-                --jimr-gray-800: #1e293b;
-                --jimr-gray-900: #0f172a;
-
-                /* Design System */
-                --jimr-border-radius: 3px;
-                --jimr-border-radius-lg: 5px;
-                --jimr-transition: all 0.2s ease;
-                --jimr-transition-slow: all 0.3s ease;
-                --clr-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-                --clr-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                --clr-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
-                --clr-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-
-                --jimr-font-xs: 10px;
-                --jimr-font-sm: 12px;
-                --jimr-font-base: 14px;
-                --jimr-font-lg: 16px;
-                --jimr-font-xl: 18px;
-                --jimr-font-2xl: 20px;
-
-                --jimr-space-1: 4px;
-                --jimr-space-2: 8px;
-                --jimr-space-3: 12px;
-                --jimr-space-4: 16px;
-                --jimr-space-5: 20px;
-                --jimr-space-6: 24px;
-            }
-
-            /* Global Styling */
-            body {
-                background: var(--clr-page-bg) !important;
-                color: var(--clr-txt) !important;
-            }
-
-            .wp-admin {
-                background: var(--clr-page-bg) !important;
-            }
-
-            #wpbody-content {
-                background: var(--clr-page-bg) !important;
-            }
-
-            .wrap {
-                background: var(--clr-page-bg) !important;
-            }
-
-            /* Hide WordPress admin footer on this page */
-            #wpfooter {
-                display: none !important;
-            }
-
-            .wp-footer {
-                display: none !important;
-            }
-
-            #footer-thankyou {
-                display: none !important;
-            }
-
-            /* Button System */
-            .fcc-btn {
-                background: var(--clr-accent);
-                color: var(--clr-btn-txt);
-                border: 2px solid var(--clr-btn-bdr);
-                padding: var(--jimr-space-2) var(--jimr-space-4);
-                border-radius: var(--jimr-border-radius);
-                font-size: var(--jimr-font-sm);
-                font-weight: 600;
-                font-style: italic;
-                text-transform: lowercase;
-                letter-spacing: 0.5px;
-                transition: var(--jimr-transition-slow);
-                cursor: pointer;
-                box-shadow: var(--clr-shadow);
-                position: relative;
-                overflow: hidden;
-                display: inline-flex;
-                align-items: center;
-                gap: var(--jimr-space-2);
-                text-decoration: none;
-            }
-
-            .fcc-btn:hover {
-                background: var(--clr-btn-hover);
-                transform: translateY(-2px);
-                box-shadow: var(--clr-shadow-lg);
-            }
-
-            .fcc-btn-primary {
-                background: var(--clr-info);
-                color: white;
-                border-color: var(--clr-info);
+        <style id="fbf-inter-fonts">
+            @font-face {
+                font-family: 'Inter';
                 font-style: normal;
-                text-transform: none;
-                letter-spacing: normal;
+                font-weight: 400;
+                font-display: swap;
+                src: url('<?php echo esc_url($font_url); ?>Inter-Regular.woff2') format('woff2');
             }
 
-            .fcc-btn-danger {
-                background: var(--clr-danger);
-                color: white;
-                border-color: var(--clr-danger-dark);
+            @font-face {
+                font-family: 'Inter';
                 font-style: normal;
-                text-transform: none;
-                letter-spacing: normal;
-            }
-
-            .fcc-btn-ghost {
-                background: var(--jimr-gray-500);
-                color: white;
-                border-color: var(--jimr-gray-600);
-                font-style: normal;
-                text-transform: none;
-                letter-spacing: normal;
-            }
-
-            /* Layout styles for Base Value and Action Buttons */
-            .fcc-table-buttons {
-                display: flex;
-                gap: var(--jimr-space-2);
-                align-items: center;
-                justify-content: flex-end;
-            }
-
-            /* Copy Button Specific Styles */
-            .fcc-copy-btn {
-                background: var(--clr-accent);
-                color: var(--clr-btn-txt);
-                border: 2px solid var(--clr-btn-bdr);
-                padding: var(--jimr-space-2) var(--jimr-space-4);
-                border-radius: var(--jimr-border-radius);
-                font-size: var(--jimr-font-sm);
-                font-weight: 600;
-                font-style: italic;
-                text-transform: lowercase;
-                letter-spacing: 0.5px;
-                transition: var(--jimr-transition-slow);
-                cursor: pointer;
-                box-shadow: var(--clr-shadow);
-                position: relative;
-                overflow: hidden;
-                display: inline-flex;
-                align-items: center;
-                gap: var(--jimr-space-2);
-                text-decoration: none;
-                border: none;
-                min-width: 80px;
-                justify-content: center;
-            }
-
-            .fcc-copy-btn:hover {
-                background: var(--clr-btn-hover);
-                transform: translateY(-2px);
-                box-shadow: var(--clr-shadow-lg);
-            }
-
-            .fcc-css-buttons {
-                display: flex;
-                gap: var(--jimr-space-2);
-                align-items: center;
-            }
-
-            /* Input System */
-            .fcc-input,
-            .component-input,
-            .component-select {
-                height: 40px;
-                padding: 10px 12px;
-                border: 2px solid var(--clr-secondary);
-                border-radius: var(--jimr-border-radius);
-                font-size: var(--jimr-font-base);
-                background: white;
-                color: var(--clr-txt);
-                transition: var(--jimr-transition-slow);
-                box-sizing: border-box;
-                margin: 0;
-                width: 100%;
-            }
-
-            .fcc-input:focus,
-            .component-input:focus,
-            .component-select:focus {
-                outline: none;
-                border-color: var(--clr-accent);
-                box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2), var(--clr-shadow);
-                background: var(--clr-light);
-                transform: translateY(-2px);
-            }
-
-            .component-select,
-            select.fcc-input {
-                cursor: pointer;
-                appearance: none;
-                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C3324' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
-                background-repeat: no-repeat;
-                background-position: right 8px center;
-                background-size: 16px;
-                padding-right: 32px;
-            }
-
-            /* Color Input Styles */
-            .color-input {
-                height: 40px;
-                padding: 4px;
-                border: 2px solid var(--clr-secondary);
-                border-radius: var(--jimr-border-radius);
-                background: white;
-                cursor: pointer;
-                transition: var(--jimr-transition-slow);
-            }
-
-            .color-input:focus {
-                outline: none;
-                border-color: var(--clr-accent);
-                box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-            }
-
-            .color-input:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-
-            /* Validation Feedback Styles */
-            .validation-error {
-                border-color: var(--clr-danger) !important;
-                box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
-                animation: shake 0.5s ease-in-out;
-            }
-
-            .validation-corrected {
-                border-color: var(--clr-warning) !important;
-                box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2) !important;
-                animation: pulse-warning 1s ease-in-out;
-            }
-
-            @keyframes shake {
-
-                0%,
-                100% {
-                    transform: translateX(0);
-                }
-
-                25% {
-                    transform: translateX(-4px);
-                }
-
-                75% {
-                    transform: translateX(4px);
-                }
-            }
-
-            @keyframes pulse-warning {
-
-                0%,
-                100% {
-                    opacity: 1;
-                }
-
-                50% {
-                    opacity: 0.7;
-                }
-            }
-
-            /* Labels */
-            label,
-            .component-label,
-            .fcc-label {
-                color: var(--clr-txt);
                 font-weight: 500;
-                font-size: var(--jimr-font-sm);
-                line-height: 1.3;
-                margin-bottom: var(--jimr-space-2);
-                display: block;
+                font-display: swap;
+                src: url('<?php echo esc_url($font_url); ?>Inter-Medium.woff2') format('woff2');
             }
 
-            /* Panels */
-            .fcc-panel {
-                background: var(--clr-light);
-                padding: var(--jimr-space-5);
-                border-radius: var(--jimr-border-radius-lg);
-                border: 2px solid var(--clr-secondary);
-                box-shadow: var(--clr-shadow-lg);
-                transition: var(--jimr-transition);
-            }
-
-            /* Grid Layout */
-            .fcc-main-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: var(--jimr-space-6);
-                margin-bottom: var(--jimr-space-6);
-            }
-
-            /* Preview Section */
-            .fcc-preview-header-row {
-                text-align: left;
-                margin-bottom: var(--jimr-space-5);
-                border-bottom: 2px solid var(--clr-secondary);
-                padding-bottom: var(--jimr-space-3);
-            }
-
-            .fcc-preview-header-row h2 {
-                color: var(--clr-primary) !important;
-                font-family: 'Georgia', serif !important;
-                font-size: var(--jimr-font-2xl) !important;
-                font-weight: 700 !important;
-                margin: 0 !important;
-                text-shadow: 1px 1px 2px var(--clr-shadow) !important;
-                border: none !important;
-            }
-
-            .fcc-preview-grid {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr !important;
-                gap: var(--jimr-space-6) !important;
-                align-items: start !important;
-                width: 100%;
-            }
-
-            .fcc-preview-column {
-                display: flex;
-                flex-direction: column;
-                gap: var(--jimr-space-3);
-                min-width: 0;
-                /* Prevents overflow issues */
-            }
-
-            @media (max-width: 1024px) {
-                .fcc-preview-grid {
-                    grid-template-columns: 1fr !important;
-                    gap: var(--jimr-space-4) !important;
-                }
-            }
-
-            .fcc-preview-column-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: var(--jimr-space-2);
-                padding: var(--jimr-space-2) var(--jimr-space-3);
-                background: rgba(92, 51, 36, 0.1);
-                border-radius: var(--jimr-border-radius);
-                border: 1px solid var(--clr-secondary);
-            }
-
-            .fcc-preview-column-header h3 {
-                color: var(--clr-secondary) !important;
-                font-size: var(--jimr-font-lg) !important;
-                font-weight: 600 !important;
-                margin: 0 !important;
-                line-height: 1.2 !important;
-            }
-
-            .fcc-scale-indicator {
-                background: var(--clr-secondary);
-                color: #FAF9F6;
-                border: 1px solid var(--clr-primary);
-                padding: var(--jimr-space-1) var(--jimr-space-3);
-                border-radius: var(--jimr-border-radius);
-                font-size: var(--jimr-font-sm);
-                font-weight: 600;
+            @font-face {
+                font-family: 'Inter';
                 font-style: normal;
-                display: inline-block;
-                box-shadow: var(--clr-shadow-sm);
-                min-width: 60px;
-                text-align: center;
-                line-height: 1.2;
+                font-weight: 600;
+                font-display: swap;
+                src: url('<?php echo esc_url($font_url); ?>Inter-SemiBold.woff2') format('woff2');
             }
 
-            /* Font Units */
-            .font-units-section {
-                margin-bottom: var(--jimr-space-5);
-            }
-
-            .font-units-label {
-                display: block;
-                font-size: var(--jimr-font-sm);
-                font-weight: 500;
-                color: var(--clr-txt);
-                margin-bottom: var(--jimr-space-1);
-            }
-
-            .font-units-buttons {
-                display: flex;
-                border-radius: var(--jimr-border-radius-lg);
-                overflow: hidden;
-                border: 2px solid var(--clr-primary);
-                box-shadow: var(--clr-shadow);
-            }
-
-            .unit-button {
-                background: var(--clr-accent);
-                color: #9C0202;
-                border: none;
-                width: 50%;
-                padding: var(--jimr-space-2);
-                text-align: center;
-                font-size: var(--jimr-font-base);
-                font-weight: 500;
-                cursor: pointer;
-                transition: var(--jimr-transition-slow);
-            }
-
-            .unit-button.active {
-                background: var(--clr-secondary);
-                color: #FAF9F6;
+            @font-face {
+                font-family: 'Inter';
+                font-style: normal;
                 font-weight: 700;
-            }
-
-            /* Grid Items */
-            .grid-item {
-                display: flex;
-                flex-direction: column;
-                gap: 2px;
-            }
-
-            /* Autosave */
-            .fcc-autosave-flex {
-                display: flex;
-                align-items: center;
-                gap: var(--jimr-space-4);
-            }
-
-            .fcc-autosave-flex label {
-                display: flex;
-                align-items: center;
-                gap: var(--jimr-space-1);
-                margin-bottom: 0;
-                cursor: pointer;
-            }
-
-            .autosave-status {
-                display: inline-flex;
-                align-items: center;
-                gap: var(--jimr-space-2);
-                font-size: 0.8rem;
-                padding: var(--jimr-space-1) var(--jimr-space-3);
-                border-radius: var(--jimr-border-radius);
-                transition: var(--jimr-transition-slow);
-                font-weight: 500;
-                border: 1px solid transparent;
-            }
-
-            .autosave-status.idle {
-                background: var(--clr-card-bg);
-                color: var(--clr-txt);
-                border-color: var(--clr-secondary);
-            }
-
-            .autosave-status.saving {
-                background: linear-gradient(135deg, var(--clr-accent), var(--clr-btn-hover));
-                color: var(--clr-btn-txt);
-                border-color: var(--clr-btn-bdr);
-                animation: pulse 1.5s ease-in-out infinite;
-            }
-
-            .autosave-status.saved {
-                background: linear-gradient(135deg, var(--jimr-success), var(--jimr-success-dark));
-                color: white;
-                border-color: #15803d;
-            }
-
-            .autosave-status.error {
-                background: linear-gradient(135deg, var(--clr-btn-bdr), var(--clr-danger));
-                color: white;
-                border-color: #991b1b;
-            }
-
-            @keyframes pulse {
-
-                0%,
-                100% {
-                    opacity: 1;
-                }
-
-                50% {
-                    opacity: 0.7;
-                }
-            }
-
-            /* CSS Headers */
-            .fcc-css-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: var(--jimr-space-3);
-            }
-
-            /* Header Section and Main Container */
-            .header-section,
-            .main-panel-container,
-            .full-width-styling {
-                width: 1280px;
-                margin: 0 auto;
-            }
-
-            .about-panel-container,
-            .main-panel-container,
-            .full-width-styling {
-                overflow: hidden;
-                background: linear-gradient(135deg, var(--clr-light), var(--clr-card-bg));
-                border: 2px solid var(--clr-primary);
-                border-radius: var(--jimr-border-radius-lg);
-                box-shadow: var(--clr-shadow-xl);
-            }
-
-            .about-panel-container {
-                margin: var(--jimr-space-6) 0;
-            }
-
-            .full-width-styling {
-                margin-bottom: var(--jimr-space-6);
-            }
-
-            /* Standardized Panel Content System */
-            .major-panel-content {
-                padding: var(--jimr-space-5);
-                background: var(--clr-light);
-            }
-
-            .collapsible-text {
-                margin: var(--jimr-space-3)
-            }
-
-            .fcc-info-toggle {
-                width: 100%;
-                background: var(--clr-secondary);
-                color: #FAF9F6 !important;
-                border: none;
-                padding: var(--jimr-space-4) var(--jimr-space-5);
-                cursor: pointer;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-size: var(--jimr-font-lg);
-                font-weight: 600;
-                transition: var(--jimr-transition-slow);
-                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            }
-
-            .fcc-info-toggle:hover {
-                background: var(--clr-primary);
-                color: #FAF9F6 !important;
-                transform: translateY(-1px);
-            }
-
-            .fcc-toggle-icon {
-                transition: transform 0.3s ease;
-                font-size: var(--jimr-font-base);
-                color: #FAF9F6 !important;
-            }
-
-            .fcc-info-toggle.expanded .fcc-toggle-icon {
-                transform: rotate(180deg);
-            }
-
-            /* Collapsible Content Animation */
-            .collapsible-text {
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease-out, padding 0.3s ease;
-                padding: 0 var(--jimr-space-5);
-            }
-
-            .collapsible-text.expanded {
-                max-height: 1000px;
-                transition: max-height 0.5s ease-in, padding 0.3s ease;
-                padding: var(--jimr-space-3) var(--jimr-space-5);
-            }
-
-            /* Typography */
-            h1 {
-                color: var(--clr-primary) !important;
-                font-family: 'Georgia', serif;
-                text-shadow: 1px 1px 2px var(--clr-shadow);
-            }
-
-            h2 {
-                color: var(--clr-primary) !important;
-                font-family: 'Georgia', serif;
-                border-bottom-color: var(--clr-secondary) !important;
-                text-shadow: 1px 1px 2px var(--clr-shadow);
-                font-size: var(--jimr-font-2xl);
-                margin: 0 0 var(--jimr-space-5) 0;
-                border-bottom: 2px solid var(--clr-secondary);
-                padding-bottom: var(--jimr-space-2);
-            }
-
-            /* Loading Screen */
-            .fcc-loading-spinner {
-                width: 60px;
-                height: 60px;
-                border: 5px solid var(--clr-light);
-                border-top: 5px solid var(--clr-accent);
-                border-right: 5px solid var(--clr-btn-hover);
-                border-radius: 50%;
-                animation: fcc-spin 1.2s linear infinite;
-                margin: 0 auto 25px;
-                box-shadow: var(--clr-shadow);
-            }
-
-            @keyframes fcc-spin {
-                to {
-                    transform: rotate(360deg);
-                }
-            }
-
-            /* Button Preview Styles */
-            .preview-button {
-                border: 2px solid;
-                cursor: pointer;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 600;
-                text-decoration: none;
-                transition: all 0.2s ease;
-                margin: 8px;
-                font-family: inherit;
-            }
-
-            .preview-button:focus {
-                outline: 2px solid #3b82f6;
-                outline-offset: 2px;
-            }
-
-            /* Button Card Layout Styles */
-            .button-card {
-                border: 2px solid var(--clr-secondary);
-                border-radius: var(--jimr-border-radius-lg);
-                overflow: hidden;
-                box-shadow: var(--clr-shadow);
-                background: white;
-                display: block;
-                position: static;
-                width: 100%;
-                box-sizing: border-box;
-                cursor: pointer;
-                transition: var(--jimr-transition);
-            }
-
-            .button-card:hover {
-                transform: translateY(-2px);
-                box-shadow: var(--clr-shadow-lg);
-            }
-
-            .button-card.selected {
-                border-color: var(--clr-accent);
-                box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3), var(--clr-shadow-lg);
-                transform: translateY(-2px);
-            }
-
-            @media (min-width: 1024px) {
-                .button-card {
-                    width: calc(50% - 12px);
-                }
-            }
-
-            /* Ensure flex gap works properly */
-            .fcc-panel [style*="gap: 24px"]>.button-card {
-                margin: 0 !important;
-            }
-
-            .button-card-header {
-                background: var(--clr-secondary);
-                color: #FAF9F6;
-                padding: 12px 16px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .button-card-content {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0;
-                background: var(--clr-card-bg);
-                padding-bottom: 12px;
-            }
-
-            .button-properties-panel {
-                background: var(--clr-light);
-                padding: 16px;
-                position: relative;
-                border-radius: 6px;
-                border-right: 2px solid var(--clr-secondary);
-            }
-
-            .button-states-panel {
-                background: var(--clr-light);
-                padding: 16px;
-                border-radius: 6px;
-            }
-
-            .card-panel-title {
-                color: var(--clr-primary);
-                font-size: 14px;
-                font-weight: 600;
-                margin-bottom: 12px;
-                border-bottom: 1px solid var(--clr-secondary);
-                padding-bottom: 6px;
-                margin-top: 0;
-            }
-
-            .button-card-content .card-panel-title:first-child {
-                margin-top: 0;
-            }
-
-            .card-property-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 8px;
-                font-size: 13px;
-            }
-
-            .card-property-label {
-                color: var(--clr-txt);
-                font-weight: 500;
-            }
-
-            .card-property-input {
-                width: 60px;
-                padding: 2px 4px;
-                border: 1px solid #ccc;
-                border-radius: 3px;
-                text-align: right;
-                font-size: 12px;
-            }
-
-            .card-state-buttons {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 6px;
-                margin-bottom: 12px;
-            }
-
-            .card-state-button {
-                background: var(--jimr-gray-200);
-                color: var(--jimr-gray-700);
-                border: 1px solid var(--jimr-gray-300);
-                padding: 6px 8px;
-                border-radius: 4px;
-                font-size: 11px;
-                font-weight: 600;
-                cursor: pointer;
-                text-align: center;
-                transition: var(--jimr-transition);
-            }
-
-            .card-state-button:hover {
-                background: var(--jimr-gray-300);
-            }
-
-            .card-state-button.active {
-                background: var(--clr-secondary);
-                color: #FAF9F6;
-                border-color: var(--clr-primary);
-            }
-
-            .card-checkbox-row {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                margin-bottom: 6px;
-                font-size: 11px;
-                flex-wrap: wrap;
-            }
-
-            .card-color-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-
-            .card-color-section {
-                display: flex;
-                flex-direction: column;
-                gap: 4px;
-            }
-
-            .card-color-label {
-                font-size: 11px;
-                color: var(--clr-txt);
-                font-weight: 500;
-            }
-
-            .card-color-input {
-                height: 32px;
-                border: 1px solid var(--clr-secondary);
-                border-radius: 4px;
-                cursor: pointer;
-                transition: var(--jimr-transition);
-            }
-
-            .card-color-input:focus {
-                outline: none;
-                border-color: var(--clr-accent);
-                box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
-            }
-
-            .card-color-input:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-
-            .header-preview-container {
-                background: rgba(240, 230, 218, 0.95);
-                border-radius: 6px;
-                border: 2px solid rgba(60, 32, 23, 0.3);
-                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-height: 80px;
-            }
-
-            .header-preview-btn {
-                background: var(--clr-accent);
-                color: var(--clr-btn-txt);
-                border: 2px solid var(--clr-btn-bdr);
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                font-family: inherit;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            .card-action-buttons {
-                display: flex;
-                gap: 8px;
-            }
-
-            .card-action-btn {
-                background: rgba(255, 255, 255, 0.2);
-                border: 1px solid rgba(255, 255, 255, 0.3);
-                color: var(--clr-header-text);
-                padding: 8px 12px;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 14px;
-                transition: all 0.2s ease;
-                font-weight: 500;
-            }
-
-            .card-action-btn:hover {
-                background: rgba(255, 255, 255, 0.3);
-                transform: translateY(-1px);
-            }
-
-            .card-action-btn.card-delete-btn {
-                background: rgba(220, 53, 69, 0.8);
-                border: 1px solid rgba(220, 53, 69, 1);
-            }
-
-            .card-action-btn.card-delete-btn:hover {
-                background: rgba(220, 53, 69, 0.9);
-            }
-
-            /* Inline Name Editing */
-            .editable-name {
-                background: rgba(255, 255, 255, 0.15);
-                border: 1px solid rgba(255, 255, 255, 0.4);
-                color: #FAF9F6;
-                font-weight: 600;
-                font-size: 16px;
-                padding: 2px 4px;
-                border-radius: 3px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                min-width: 120px;
-            }
-
-            .editable-name:hover {
-                background: var(--clr-light);
-                border-color: var(--clr-secondary);
-            }
-
-            .editable-name:focus {
-                outline: none;
-                background: white;
-                color: var(--clr-txt);
-                border-color: var(--clr-accent);
-                box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3);
-            }
-
-            @media (max-width: 768px) {
-                .button-card-content {
-                    grid-template-columns: 1fr;
-                }
-
-                .button-properties-panel {
-                    border-right: none;
-                    border-bottom: 2px solid var(--clr-secondary);
-                    margin: 0 12px 12px 12px;
-                }
-            }
-
-            /* Responsive */
-            @media (max-width: 768px) {
-                .fcc-main-grid {
-                    grid-template-columns: 1fr;
-                    gap: var(--jimr-space-4);
-                }
-
-                .fcc-info-content div[style*="grid-template-columns: 1fr 1fr"] {
-                    grid-template-columns: 1fr !important;
-                    gap: var(--jimr-space-4) !important;
-                }
-            }
-
-            #bdc-main-container {
-                display: block !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-
-            /* Drag Handle Styles */
-            .drag-handle {
-                cursor: grab !important;
-                user-select: none;
-                padding: 4px;
-                color: var(--clr-header-text);
-                font-weight: bold;
-                transition: color 0.2s ease;
-            }
-
-            .drag-handle:hover {
-                color: var(--clr-secondary);
-            }
-
-            .drag-handle:active {
-                cursor: grabbing !important;
+                font-display: swap;
+                src: url('<?php echo esc_url($font_url); ?>Inter-Bold.woff2') format('woff2');
             }
         </style>
     <?php
     }
+
+    /**
+     * Removed: render_unified_css()
+     * CSS is now loaded via external files in enqueue_assets()
+     * See: assets/css/admin-styles.css (imports all modules)
+     */
 
     private function render_basic_javascript()
     {
