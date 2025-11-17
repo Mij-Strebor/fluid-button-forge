@@ -360,7 +360,7 @@ class FluidButtonForge
                             <p style="margin: 0 0 var(--sp-4) 0; color: var(--clr-txt);">
                                 Create professional button systems for your website! Design responsive Call-to-Action buttons, primary navigation buttons, secondary actions, and form submit buttons that scale perfectly across all devices. This tool generates CSS clamp() functions for consistent button hierarchies that maintain their proportions from mobile to desktop, ensuring your CTAs and interactive elements look perfect everywhere.
                             </p>
-                            <div style="background: rgba(60, 32, 23, 0.1); padding: var(--sp-3) var(--sp-4); border-radius: var(--br-md); border-left: 4px solid var(--clr-accent); margin-top: var(--sp-5);">
+                            <div style="background: var(--clr-light); padding: var(--sp-3) var(--sp-4); border-radius: var(--br-md); border-left: 4px solid var(--clr-accent); margin-top: var(--sp-5);">
                                 <p style="margin: 0; font-size: var(--fs-xs); opacity: 0.95; line-height: var(--lh-normal); color: var(--clr-txt);">
                                     Fluid Button Forge by Jim Roberts (Jim R Forge) (<a href="https://jimrforge.com" target="_blank" style="color: var(--clr-link); text-decoration: underline; font-weight: var(--fw-semibold);">JimRForge.com</a>), part of the CSS Tools series developed with Claude AI (<a href="https://anthropic.com" target="_blank" style="color: var(--clr-link); text-decoration: underline; font-weight: var(--fw-semibold);">Anthropic</a>).
                                 </p>
