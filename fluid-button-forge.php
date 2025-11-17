@@ -344,11 +344,11 @@ class FluidButtonForge
         ob_start();
 ?>
         <div class="wrap" style="background: var(--clr-page-bg); padding: var(--sp-5); min-height: 100vh;">
-            <div class="header-section">
+            <div class="fbf-header-section">
                 <h1 class="text-2xl font-bold mb-4">Fluid Button Forge (1.0)</h1><br>
 
                 <!-- About Section -->
-                <div class="about-panel-container">
+                <div class="about-panel-container fbf-info-toggle-section">
                     <div>
                         <button class="fbf-info-toggle expanded" data-toggle-target="about-content">
                             <span style="color: var(--clr-header-text) !important;">🎨 About Fluid Button Forge</span>

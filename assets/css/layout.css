@@ -49,7 +49,7 @@ Styleguide: Layout.PanelContainers
 }
 
 .about-panel-container {
-    margin: var(--sp-18) 0 var(--sp-6) 0;  /* 72px top margin to space under header */
+    margin: var(--sp-6) 0;  /* Positioned by forge-header.css via .fbf-info-toggle-section */
 }
 
 .full-width-styling {
