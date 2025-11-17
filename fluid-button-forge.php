@@ -161,13 +161,13 @@ class FluidButtonForge
             'active' => [
                 'background' => [
                     'type' => 'solid',
-                    'solid' => '#DAA520',
+                    'solid' => 'var(--clr-btn-active)',
                     'gradient' => [
                         'type' => 'linear',
                         'angle' => 135,
                         'stops' => [
-                            ['color' => '#DAA520', 'position' => 0],
-                            ['color' => '#FF7F00', 'position' => 100]
+                            ['color' => 'var(--clr-btn-active)', 'position' => 0],
+                            ['color' => 'var(--clr-btn-active-gradient)', 'position' => 100]
                         ]
                     ]
                 ],
@@ -178,18 +178,18 @@ class FluidButtonForge
             'disabled' => [
                 'background' => [
                     'type' => 'solid',
-                    'solid' => 'var(--jimr-gray-300)',
+                    'solid' => 'var(--clr-gray-300)',
                     'gradient' => [
                         'type' => 'linear',
                         'angle' => 135,
                         'stops' => [
-                            ['color' => 'var(--jimr-gray-300)', 'position' => 0],
-                            ['color' => 'var(--jimr-gray-400)', 'position' => 100]
+                            ['color' => 'var(--clr-gray-300)', 'position' => 0],
+                            ['color' => 'var(--clr-gray-400)', 'position' => 100]
                         ]
                     ]
                 ],
-                'text' => 'var(--jimr-gray-600)',
-                'border' => 'var(--jimr-gray-400)',
+                'text' => 'var(--clr-gray-600)',
+                'border' => 'var(--clr-gray-400)',
                 'useBorder' => true
             ]
         ];
@@ -343,26 +343,26 @@ class FluidButtonForge
 
         ob_start();
 ?>
-        <div class="wrap" style="background: var(--clr-page-bg); padding: 20px; min-height: 100vh;">
+        <div class="wrap" style="background: var(--clr-page-bg); padding: var(--sp-5); min-height: 100vh;">
             <div class="header-section">
                 <h1 class="text-2xl font-bold mb-4">Fluid Button Forge (1.0)</h1><br>
 
                 <!-- About Section -->
                 <div class="about-panel-container">
                     <div>
-                        <button class="fcc-info-toggle expanded" data-toggle-target="about-content">
-                            <span style="color: #FAF9F6 !important;">🎨 About Fluid Button Forge</span>
-                            <span class="fcc-toggle-icon" style="color: #FAF9F6 !important;">▼</span>
+                        <button class="fbf-info-toggle expanded" data-toggle-target="about-content">
+                            <span style="color: var(--clr-header-text) !important;">🎨 About Fluid Button Forge</span>
+                            <span class="fbf-toggle-icon" style="color: var(--clr-header-text) !important;">▼</span>
                         </button>
                     </div>
                     <div class="collapsible-text expanded" id="about-content">
-                        <div style="color: var(--clr-txt); font-size: 14px; line-height: 1.6;">
-                            <p style="margin: 0 0 16px 0; color: var(--clr-txt);">
+                        <div style="color: var(--clr-txt); font-size: var(--fs-sm); line-height: var(--lh-normal);">
+                            <p style="margin: 0 0 var(--sp-4) 0; color: var(--clr-txt);">
                                 Create professional button systems for your website! Design responsive Call-to-Action buttons, primary navigation buttons, secondary actions, and form submit buttons that scale perfectly across all devices. This tool generates CSS clamp() functions for consistent button hierarchies that maintain their proportions from mobile to desktop, ensuring your CTAs and interactive elements look perfect everywhere.
                             </p>
-                            <div style="background: rgba(60, 32, 23, 0.1); padding: 12px 16px; border-radius: 6px; border-left: 4px solid var(--clr-accent); margin-top: 20px;">
-                                <p style="margin: 0; font-size: 13px; opacity: 0.95; line-height: 1.5; color: var(--clr-txt);">
-                                    Fluid Button Forge by Jim R. (<a href="https://jimrweb.com" target="_blank" style="color: #CD5C5C; text-decoration: underline; font-weight: 600;">JimRWeb</a>), part of the CSS Tools series developed with Claude AI (<a href="https://anthropic.com" target="_blank" style="color: #CD5C5C; text-decoration: underline; font-weight: 600;">Anthropic</a>).
+                            <div style="background: rgba(60, 32, 23, 0.1); padding: var(--sp-3) var(--sp-4); border-radius: var(--br-md); border-left: 4px solid var(--clr-accent); margin-top: var(--sp-5);">
+                                <p style="margin: 0; font-size: var(--fs-xs); opacity: 0.95; line-height: var(--lh-normal); color: var(--clr-txt);">
+                                    Fluid Button Forge by Jim Roberts (Jim R Forge) (<a href="https://jimrforge.com" target="_blank" style="color: var(--clr-link); text-decoration: underline; font-weight: var(--fw-semibold);">JimRForge.com</a>), part of the CSS Tools series developed with Claude AI (<a href="https://anthropic.com" target="_blank" style="color: var(--clr-link); text-decoration: underline; font-weight: var(--fw-semibold);">Anthropic</a>).
                                 </p>
                             </div>
                         </div>
@@ -375,35 +375,35 @@ class FluidButtonForge
                 <!-- How to Use Panel -->
                 <div class="full-width-styling">
                     <div class="major-panel-header">
-                        <button class="fcc-info-toggle expanded" data-toggle-target="info-content">
-                            <span style="color: #FAF9F6 !important;">ℹ️ How to Use Fluid Button Forge</span>
-                            <span class="fcc-toggle-icon" style="color: #FAF9F6 !important;">▼</span>
+                        <button class="fbf-info-toggle expanded" data-toggle-target="info-content">
+                            <span style="color: var(--clr-header-text) !important;">ℹ️ How to Use Fluid Button Forge</span>
+                            <span class="fbf-toggle-icon" style="color: var(--clr-header-text) !important;">▼</span>
                         </button>
                     </div>
                     <div class="collapsible-text expanded" id="info-content">
-                        <div style="color: var(--clr-txt); font-size: 14px; line-height: 1.6;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px;">
+                        <div style="color: var(--clr-txt); font-size: var(--fs-sm); line-height: var(--lh-normal);">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); margin-bottom: var(--sp-5);">
                                 <div>
-                                    <h4 style="color: var(--clr-secondary); font-size: 15px; font-weight: 600; margin: 0 0 8px 0;">1. Configure Settings</h4>
-                                    <p style="margin: 0; font-size: 13px; line-height: 1.5;">Set your base size, viewport range, and scaling ratios. Choose units and configure colors for different button states.</p>
+                                    <h4 style="color: var(--clr-secondary); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0 0 8px 0;">1. Configure Settings</h4>
+                                    <p style="margin: 0; font-size: var(--fs-xs); line-height: var(--lh-normal);">Set your base size, viewport range, and scaling ratios. Choose units and configure colors for different button states.</p>
                                 </div>
                                 <div>
-                                    <h4 style="color: var(--clr-secondary); font-size: 15px; font-weight: 600; margin: 0 0 8px 0;">2. Design Button Sizes</h4>
-                                    <p style="margin: 0; font-size: 13px; line-height: 1.5;">Edit button properties directly in each card - click any value to modify it. Colors and states can be changed per button.</p>
+                                    <h4 style="color: var(--clr-secondary); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0 0 8px 0;">2. Design Button Sizes</h4>
+                                    <p style="margin: 0; font-size: var(--fs-xs); line-height: var(--lh-normal);">Edit button properties directly in each card - click any value to modify it. Colors and states can be changed per button.</p>
                                 </div>
                                 <div>
-                                    <h4 style="color: var(--clr-secondary); font-size: 15px; font-weight: 600; margin: 0 0 8px 0;">3. Preview Buttons</h4>
-                                    <p style="margin: 0; font-size: 13px; line-height: 1.5;">See live previews showing how your buttons will look at different screen sizes and in all four states: Normal, Hover, Active, and Disabled.</p>
+                                    <h4 style="color: var(--clr-secondary); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0 0 8px 0;">3. Preview Buttons</h4>
+                                    <p style="margin: 0; font-size: var(--fs-xs); line-height: var(--lh-normal);">See live previews showing how your buttons will look at different screen sizes and in all four states: Normal, Hover, Active, and Disabled.</p>
                                 </div>
                                 <div>
-                                    <h4 style="color: var(--clr-secondary); font-size: 15px; font-weight: 600; margin: 0 0 8px 0;">4. Generate CSS</h4>
-                                    <p style="margin: 0; font-size: 13px; line-height: 1.5;">Copy responsive CSS with clamp() functions ready to use in your projects. Available as classes or CSS custom properties.</p>
+                                    <h4 style="color: var(--clr-secondary); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0 0 8px 0;">4. Generate CSS</h4>
+                                    <p style="margin: 0; font-size: var(--fs-xs); line-height: var(--lh-normal);">Copy responsive CSS with clamp() functions ready to use in your projects. Available as classes or CSS custom properties.</p>
                                 </div>
                             </div>
 
-                            <div style="background: #F0E6DA; padding: 12px 16px; border-radius: 8px; border: 1px solid #5C3324; margin: 1rem 10rem; text-align: center;">
-                                <h4 style="color: #3C2017; font-size: 14px; font-weight: 600; margin: 0 0 6px 0;">💡 Pro Tip</h4>
-                                <p style="margin: 0; font-size: 13px; color: var(--clr-txt);">All editing is now inline - just click on any value to change it. Button names can be edited by clicking the name in the header.</p>
+                            <div style="background: var(--clr-card-bg); padding: var(--sp-3) 16px; border-radius: var(--br-lg); border: var(--border-thin) solid var(--clr-secondary); margin: var(--sp-4) 10rem; text-align: center;">
+                                <h4 style="color: var(--clr-primary); font-size: var(--fs-sm); font-weight: var(--fw-semibold); margin: 0 0 6px 0;">💡 Pro Tip</h4>
+                                <p style="margin: 0; font-size: var(--fs-xs); color: var(--clr-txt);">All editing is now inline - just click on any value to change it. Button names can be edited by clicking the name in the header.</p>
                             </div>
                         </div>
                     </div>
@@ -412,12 +412,12 @@ class FluidButtonForge
                 <!-- Full Width Settings Panel -->
                 <div class="full-width-styling" style="margin-bottom: 24px 0;">
                     <div class="major-panel-content">
-                        <div style="margin-bottom: 20px;">
+                        <div style="margin-bottom: var(--sp-5);">
                             <h2 style="color: var(--clr-primary); margin: 0;">Settings</h2>
                         </div>
 
                         <!-- Settings in horizontal layout -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--sp-5); margin-bottom: var(--sp-5);">
                             <div class="grid-item">
                                 <label class="component-label" for="min-base-size">Min Viewport Font Size (px)</label>
                                 <input type="number" id="min-base-size" value="<?php echo esc_attr($settings['minBaseSize'] ?? self::DEFAULT_MIN_BASE_SIZE); ?>"
@@ -472,7 +472,7 @@ class FluidButtonForge
                     <div>
                         <div class="fcc-panel" id="sizes-table-container">
                             <div id="sizes-table-wrapper">
-                                <div style="text-align: center; color: #6b7280; font-style: italic; padding: 40px 20px;">
+                                <div style="text-align: center; color: var(--clr-gray-500); font-style: italic; padding: var(--sp-9) var(--sp-5);">
                                     <div class="fcc-loading-spinner" style="width: 25px; height: 25px; margin: 0 auto 10px;"></div>
                                     <div>Loading button classes...</div>
                                 </div>
@@ -495,7 +495,7 @@ class FluidButtonForge
                                 <h3>Min Size (Small Screens)</h3>
                                 <div class="fcc-scale-indicator" id="min-viewport-display"><?php echo esc_html($settings['minViewport']); ?>px</div>
                             </div>
-                            <div id="preview-min-container" style="background: white; border-radius: 8px; padding: 20px; border: 2px solid var(--clr-secondary); min-height: 320px; box-shadow: inset 0 2px 4px var(--clr-shadow);">
+                            <div id="preview-min-container" style="background: white; border-radius: var(--br-lg); padding: 20px; border: 2px solid var(--clr-secondary); min-height: 320px; box-shadow: inset 0 2px 4px var(--clr-shadow);">
                                 <div style="text-align: center; color: var(--clr-txt); font-style: italic; padding: 60px 20px;">
                                     <div class="fcc-loading-spinner" style="width: 25px; height: 25px; margin: 0 auto 10px;"></div>
                                     <div>Generating button previews...</div>
@@ -508,7 +508,7 @@ class FluidButtonForge
                                 <h3>Max Size (Large Screens)</h3>
                                 <div class="fcc-scale-indicator" id="max-viewport-display"><?php echo esc_html($settings['maxViewport']); ?>px</div>
                             </div>
-                            <div id="preview-max-container" style="background: white; border-radius: 8px; padding: 20px; border: 2px solid var(--clr-secondary); min-height: 320px; box-shadow: inset 0 2px 4px var(--clr-shadow);">
+                            <div id="preview-max-container" style="background: white; border-radius: var(--br-lg); padding: 20px; border: 2px solid var(--clr-secondary); min-height: 320px; box-shadow: inset 0 2px 4px var(--clr-shadow);">
                                 <div style="text-align: center; color: var(--clr-txt); font-style: italic; padding: 60px 20px;">
                                     <div class="fcc-loading-spinner" style="width: 25px; height: 25px; margin: 0 auto 10px;"></div>
                                     <div>Generating button previews...</div>
@@ -532,8 +532,8 @@ class FluidButtonForge
                             </button>
                         </div>
                     </div>
-                    <div style="background: white; border-radius: 6px; padding: 8px; border: 1px solid #d1d5db; overflow: auto; max-height: 300px;">
-                        <pre id="selected-code" style="font-size: 12px; white-space: pre-wrap; color: #111827; margin: 0;">/* Click a button card to select it and view its CSS */</pre>
+                    <div style="background: white; border-radius: var(--br-md); padding: 8px; border: var(--border-thin) solid var(--clr-gray-300); overflow: auto; max-height: 300px;">
+                        <pre id="selected-code" style="font-size: var(--fs-xs); white-space: pre-wrap; color: var(--clr-gray-900); margin: 0;">/* Click a button card to select it and view its CSS */</pre>
                     </div>
                 </div>
             </div>
@@ -551,8 +551,8 @@ class FluidButtonForge
                             </button>
                         </div>
                     </div>
-                    <div style="background: white; border-radius: 6px; padding: 8px; border: 1px solid #d1d5db; overflow: auto; max-height: 400px;">
-                        <pre id="generated-code" style="font-size: 12px; white-space: pre-wrap; color: #111827; margin: 0;">/* Loading CSS output... */</pre>
+                    <div style="background: white; border-radius: var(--br-md); padding: 8px; border: var(--border-thin) solid var(--clr-gray-300); overflow: auto; max-height: 400px;">
+                        <pre id="generated-code" style="font-size: var(--fs-xs); white-space: pre-wrap; color: var(--clr-gray-900); margin: 0;">/* Loading CSS output... */</pre>
                     </div>
                 </div>
             </div>
@@ -613,7 +613,7 @@ class FluidButtonForge
             @font-face {
                 font-family: 'Inter';
                 font-style: normal;
-                font-weight: 600;
+                font-weight: var(--fw-semibold);
                 font-display: swap;
                 src: url('<?php echo esc_url($font_url); ?>Inter-SemiBold.woff2') format('woff2');
             }
@@ -1319,10 +1319,10 @@ class FluidButtonForge
                 const textInput = document.querySelector(`[data-size-id="${sizeId}"].text-input`);
                 const borderInput = document.querySelector(`[data-size-id="${sizeId}"].border-input`);
 
-                if (backgroundInput) backgroundInput.value = normalizedStateColors.background || '#FFD700';
-                if (textInput) textInput.value = normalizedStateColors.text || '#9C0202';
+                if (backgroundInput) backgroundInput.value = normalizedStateColors.background || 'var(--clr-accent)';
+                if (textInput) textInput.value = normalizedStateColors.text || 'var(--clr-btn-txt)';
                 if (borderInput) {
-                    borderInput.value = normalizedStateColors.border || '#DE0B0B';
+                    borderInput.value = normalizedStateColors.border || 'var(--clr-btn-bdr)';
                     borderInput.disabled = !normalizedStateColors.useBorder;
                 }
 
@@ -1657,7 +1657,7 @@ class FluidButtonForge
 
                     // Handle newer background object structure (priority)
                     if (stateColors.background && typeof stateColors.background === 'object') {
-                        backgroundColor = stateColors.background.solid || stateColors.background.gradient?.stops?.[0]?.color || '#FFD700';
+                        backgroundColor = stateColors.background.solid || stateColors.background.gradient?.stops?.[0]?.color || 'var(--clr-accent)';
                     }
                     // Handle old background1/background2 structure
                     else if (stateColors.background1) {
@@ -1669,13 +1669,13 @@ class FluidButtonForge
                     }
                     // Fallback
                     else {
-                        backgroundColor = '#FFD700';
+                        backgroundColor = 'var(--clr-accent)';
                     }
 
                     normalized[state] = {
                         background: backgroundColor,
-                        text: stateColors.text || '#9C0202',
-                        border: stateColors.border || '#DE0B0B',
+                        text: stateColors.text || 'var(--clr-btn-txt)',
+                        border: stateColors.border || 'var(--clr-btn-bdr)',
                         useBorder: stateColors.useBorder !== false
                     };
                 });
@@ -1690,14 +1690,14 @@ class FluidButtonForge
             function resolveCSSVariableToHex(cssValue) {
                 // Map of CSS variables to their hex values
                 const cssVariableMap = {
-                    'var(--clr-accent)': '#FFD700',
-                    'var(--clr-btn-txt)': '#9C0202',
-                    'var(--clr-btn-bdr)': '#DE0B0B',
-                    'var(--clr-btn-hover)': '#E5B929',
-                    'var(--clr-secondary)': '#5C3324',
-                    'var(--jimr-gray-300)': '#cbd5e1',
-                    'var(--jimr-gray-600)': '#475569',
-                    'var(--jimr-gray-500)': '#64748b'
+                    'var(--clr-accent)': 'var(--clr-accent)',
+                    'var(--clr-btn-txt)': 'var(--clr-btn-txt)',
+                    'var(--clr-btn-bdr)': 'var(--clr-btn-bdr)',
+                    'var(--clr-btn-hover)': 'var(--clr-btn-hover)',
+                    'var(--clr-secondary)': 'var(--clr-secondary)',
+                    'var(--jimr-gray-300)': 'var(--clr-gray-300)',
+                    'var(--jimr-gray-600)': 'var(--clr-gray-600)',
+                    'var(--jimr-gray-500)': 'var(--clr-gray-500)'
                 };
 
                 // Return mapped value if it's a CSS variable, otherwise return the original value
@@ -1715,7 +1715,7 @@ class FluidButtonForge
 
                     // Handle newer background object structure (priority)
                     if (stateColors.background && typeof stateColors.background === 'object') {
-                        backgroundColor = stateColors.background.solid || stateColors.background.gradient?.stops?.[0]?.color || '#FFD700';
+                        backgroundColor = stateColors.background.solid || stateColors.background.gradient?.stops?.[0]?.color || 'var(--clr-accent)';
                     }
                     // Handle old background1/background2 structure
                     else if (stateColors.background1) {
@@ -1727,13 +1727,13 @@ class FluidButtonForge
                     }
                     // Fallback
                     else {
-                        backgroundColor = '#FFD700';
+                        backgroundColor = 'var(--clr-accent)';
                     }
 
                     normalized[state] = {
                         background: resolveCSSVariableToHex(backgroundColor),
-                        text: resolveCSSVariableToHex(stateColors.text || '#9C0202'),
-                        border: resolveCSSVariableToHex(stateColors.border || '#DE0B0B'),
+                        text: resolveCSSVariableToHex(stateColors.text || 'var(--clr-btn-txt)'),
+                        border: resolveCSSVariableToHex(stateColors.border || 'var(--clr-btn-bdr)'),
                         useBorder: stateColors.useBorder !== false
                     };
                 });
@@ -1802,10 +1802,10 @@ class FluidButtonForge
         right: 20px;
         background: var(--jimr-success);
         color: white;
-        padding: 12px 16px;
-        border-radius: 6px;
-        font-size: 14px;
-        font-weight: 600;
+        padding: var(--sp-3) 16px;
+        border-radius: var(--br-md);
+        font-size: var(--fs-sm);
+        font-weight: var(--fw-semibold);
         box-shadow: var(--clr-shadow-lg);
         z-index: 10000;
         transition: all 0.3s ease;
@@ -2157,14 +2157,14 @@ class FluidButtonForge
 
                 return `
     <div style="font-family: Arial, sans-serif;">
-        <h4 style="margin: 0 0 16px 0; color: var(--clr-txt); font-size: 14px; font-weight: 600;">${titleText}</h4>
+        <h4 style="margin: 0 0 16px 0; color: var(--clr-txt); font-size: var(--fs-sm); font-weight: var(--fw-semibold);">${titleText}</h4>
         ${sizes.map(size => {
             const name = size.className;
             const buttonColors = normalizeColorData(size.colors || globalColors);
             
             return `
-                <div style="margin-bottom: 20px; padding: 12px; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #1976d2; display: block; position: relative;">
-                    <div style="font-size: 11px; color: #666; margin-bottom: 8px; font-weight: 600;">${name}</div>
+                <div style="margin-bottom: var(--sp-5); padding: var(--sp-3); background: var(--clr-gray-50); border-radius: var(--br-md); border-left: 3px solid var(--clr-info); display: block; position: relative;">
+                    <div style="font-size: 11px; color: var(--clr-txt-muted); margin-bottom: var(--sp-2); font-weight: var(--fw-semibold);">${name}</div>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                         ${Object.keys(buttonColors).map(state => {
                             const stateColors = buttonColors[state];
@@ -2237,7 +2237,7 @@ return `
                 if (!sizes || sizes.length === 0) {
                     return `
 
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-5);">
                             <h2 style="margin: 0; flex: 0 0 auto;">Button Classes</h2>
                             
                             <div class="fcc-autosave-flex" style="flex: 0 0 auto;">
@@ -2260,7 +2260,7 @@ return `
                             </div>
                         </div>
 
-                        <div style="text-align: center; color: #6b7280; font-style: italic; padding: 40px 20px;">
+                        <div style="text-align: center; color: var(--clr-gray-500); font-style: italic; padding: var(--sp-9) var(--sp-5);">
                             No button classes created yet. Use the form above to create your first button.
                         </div>
                     `;
@@ -2302,7 +2302,7 @@ return `
                 
     <!-- Add New Button Form -->
 
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-5);">
                         <h2 style="margin: 0; flex: 0 0 auto;">Button Classes</h2>
                         
                         <div class="fcc-autosave-flex" style="flex: 0 0 auto;">
@@ -2326,7 +2326,7 @@ return `
                     </div>
 
                     <div>
-                        <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 24px;">
+                        <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--sp-6);">
                             ${sizes.map(size => `
                                 <div class="button-card" data-id="${size.id}">
                                     <!-- Button Card Header -->
@@ -2343,7 +2343,7 @@ return `
                                     </div>
                                     
 <!-- Button Preview Section -->
-<div style="background: var(--clr-light); padding: 16px; margin: 12px; border-radius: 6px; border-bottom: 2px solid var(--clr-secondary);">
+<div style="background: var(--clr-light); padding: 16px; margin: 12px; border-radius: var(--br-md); border-bottom: 2px solid var(--clr-secondary);">
     <div class="header-preview-container" style="height: 80px; display: flex; align-items: center; justify-content: center;">
 <button class="header-preview-btn" data-size-id="${size.id}" 
     style="width: ${Math.max(size.width * 0.5, 60)}px; height: ${Math.max(size.height * 0.8, 28)}px; 

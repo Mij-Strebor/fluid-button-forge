@@ -55,6 +55,8 @@
      */
     --clr-btn-txt: #3d2f1f;           /* Button text color (deep brown) */
     --clr-btn-bdr: #3d2f1f;           /* Button border color */
+    --clr-btn-active: #DAA520;        /* Button active state (goldenrod) */
+    --clr-btn-active-gradient: #FF7F00; /* Button active gradient (orange) */
 
     /**
      * Links
