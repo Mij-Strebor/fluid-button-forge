@@ -26,6 +26,7 @@ Styleguide: Base.Global
 body {
     background: var(--clr-page-bg) !important;
     color: var(--clr-txt) !important;
+    font-size: 16px !important;  /* Base font size (JIMRFORGE standard) */
 }
 
 .wp-admin {

@@ -222,7 +222,7 @@ Styleguide: ButtonCards.PropertiesPanel
 
 .card-panel-title {
     color: var(--clr-primary);
-    font-size: var(--fs-sm);
+    font-size: var(--fs-md) !important;
     font-weight: var(--fw-semibold);
     margin-bottom: 12px;
     border-bottom: var(--border-thin) solid var(--clr-secondary);
@@ -253,7 +253,7 @@ Styleguide: ButtonCards.PropertyRow
     justify-content: space-between;
     align-items: center;
     margin-bottom: var(--sp-2);
-    font-size: 13px;
+    font-size: var(--fs-md) !important;
 }
 
 .card-property-label {

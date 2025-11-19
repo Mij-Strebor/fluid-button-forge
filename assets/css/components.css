@@ -401,6 +401,68 @@ Styleguide: Components.Panels.Collapsible
     padding: var(--sp-3) var(--sp-5);
 }
 
+/*
+CSS Output Headers
+
+Static info headers for CSS output panels with brown background and buttons
+
+Styleguide: Components.Panels.CSSHeaders
+*/
+.fcc-css-header,
+.fcc-info-header-static {
+    width: 100%;
+    padding: var(--sp-5) var(--sp-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--clr-secondary);
+    cursor: default;
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-lg);
+    border-radius: var(--br-lg) var(--br-lg) 0 0;
+    box-sizing: border-box !important;
+}
+
+.fcc-css-header h2,
+.fcc-info-header-static h2 {
+    color: var(--clr-header-text) !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    flex-grow: 1;
+}
+
+.fcc-css-buttons {
+    display: flex;
+    gap: var(--sp-2);
+}
+
+.fcc-copy-btn {
+    background: var(--clr-accent) !important;
+    color: var(--clr-primary) !important;
+    border: none !important;
+    border-radius: var(--br-md) !important;
+    padding: var(--sp-2) var(--sp-4) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
+    text-transform: none !important;
+    letter-spacing: 0.5px !important;
+    transition: var(--transition-slow) !important;
+    cursor: pointer !important;
+    box-shadow: var(--shadow-md) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: var(--sp-2) !important;
+    min-width: 80px !important;
+}
+
+.fcc-copy-btn:hover {
+    background: var(--clr-btn-hover) !important;
+    transform: translate(-2px, -2px) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
 /* ============================================================================
    UNIT BUTTONS (PX / REM)
    ========================================================================= */

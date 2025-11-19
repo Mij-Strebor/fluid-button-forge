@@ -51,7 +51,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
+    width: 100%;
+    max-width: 1320px;  /* Match wrap max-width */
     height: 50vh;   /* 50% viewport height */
     min-height: 500px;  /* Ensure enough space for About panel */
     z-index: 0;     /* Behind all content */
@@ -112,11 +113,10 @@
     padding-top: 160px !important;    /* Position H1 at top third (~33% of 50vh header) */
     padding-left: 0 !important;      /* Remove left padding to fix alignment */
     padding-right: 0 !important;     /* Remove right padding to fix alignment */
-    margin: 0 !important;       /* Center the container */
-    margin-bottom: 0 !important;  /* No bottom margin - About panel now outside header */  /* Push About panel way down */
+    margin: 0 !important;            /* Left aligned */
+    margin-bottom: 0 !important;     /* No bottom margin - About panel now outside header */
     min-height: 520px !important;    /* Ensures consistent spacing on small screens */
-    width: 1280px !important;        /* Fixed width to match body panels */
-    max-width: 100% !important;      /* Responsive on small screens */
+    max-width: 1320px !important;    /* Header width */
     box-sizing: border-box !important;
 }
 

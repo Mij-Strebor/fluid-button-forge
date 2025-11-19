@@ -34,7 +34,7 @@ class FluidButtonForge
     // ========================================================================
 
     // Configuration Constants
-    const VERSION = '1.0';
+    const VERSION = '1.0.0';
     const PLUGIN_SLUG = 'fluid-button-forge';
     const NONCE_ACTION = 'fluid_button_nonce';
 
@@ -343,11 +343,14 @@ class FluidButtonForge
 
         ob_start();
 ?>
-        <div class="wrap" style="background: var(--clr-page-bg); padding: var(--sp-5); min-height: 100vh;">
+        <div class="wrap" style="background: var(--clr-page-bg); padding: var(--sp-5); min-height: 100vh; max-width: 1320px; box-sizing: border-box;">
             <div class="fbf-header-section">
-                <h1 class="text-2xl font-bold mb-4">Fluid Button Forge (1.0)</h1><br>
+                <h1>Fluid Button Forge</h1>
+            </div>
 
-                <!-- About Section -->
+            <p style="font-style: italic; color: var(--clr-txt-muted); margin: 20px 0 20px 0; font-size: var(--fs-sm);">Version <?php echo self::VERSION; ?></p>
+
+            <!-- About Section -->
                 <div class="about-panel-container fbf-info-toggle-section">
                     <div>
                         <button class="fbf-info-toggle expanded" data-toggle-target="about-content">
@@ -356,54 +359,53 @@ class FluidButtonForge
                         </button>
                     </div>
                     <div class="collapsible-text expanded" id="about-content">
-                        <div style="color: var(--clr-txt); font-size: var(--fs-sm); line-height: var(--lh-normal);">
-                            <p style="margin: 0 0 var(--sp-4) 0; color: var(--clr-txt);">
+                        <div style="color: var(--clr-txt); font-size: var(--fs-md) !important; line-height: var(--lh-normal);">
+                            <p style="margin: 0 0 var(--sp-4) 0; color: var(--clr-txt); font-size: var(--fs-md) !important;">
                                 Create professional button systems for your website! Design responsive Call-to-Action buttons, primary navigation buttons, secondary actions, and form submit buttons that scale perfectly across all devices. This tool generates CSS clamp() functions for consistent button hierarchies that maintain their proportions from mobile to desktop, ensuring your CTAs and interactive elements look perfect everywhere.
                             </p>
                             <div style="background: var(--clr-light); padding: var(--sp-3) var(--sp-4); border-radius: var(--br-md); border-left: 4px solid var(--clr-accent); margin-top: var(--sp-5);">
-                                <p style="margin: 0; font-size: var(--fs-xs); opacity: 0.95; line-height: var(--lh-normal); color: var(--clr-txt);">
+                                <p style="margin: 0; font-size: var(--fs-md) !important; opacity: 0.95; line-height: var(--lh-normal); color: var(--clr-txt);">
                                     Fluid Button Forge by Jim Roberts (Jim R Forge) (<a href="https://jimrforge.com" target="_blank" style="color: var(--clr-link); text-decoration: underline; font-weight: var(--fw-semibold);">JimRForge.com</a>), part of the CSS Tools series developed with Claude AI (<a href="https://anthropic.com" target="_blank" style="color: var(--clr-link); text-decoration: underline; font-weight: var(--fw-semibold);">Anthropic</a>).
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             <!-- Main Section -->
             <div class="main-panel-container" id="bdc-main-container">
                 <!-- How to Use Panel -->
                 <div class="full-width-styling">
-                    <div class="major-panel-header">
+                    <div>
                         <button class="fbf-info-toggle expanded" data-toggle-target="info-content">
                             <span style="color: var(--clr-header-text) !important;">ℹ️ How to Use Fluid Button Forge</span>
                             <span class="fbf-toggle-icon" style="color: var(--clr-header-text) !important;">▼</span>
                         </button>
                     </div>
                     <div class="collapsible-text expanded" id="info-content">
-                        <div style="color: var(--clr-txt); font-size: var(--fs-sm); line-height: var(--lh-normal);">
+                        <div style="color: var(--clr-txt); font-size: var(--fs-md) !important; line-height: var(--lh-normal);">
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); margin-bottom: var(--sp-5);">
                                 <div>
                                     <h4 style="color: var(--clr-secondary); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0 0 8px 0;">1. Configure Settings</h4>
-                                    <p style="margin: 0; font-size: var(--fs-xs); line-height: var(--lh-normal);">Set your base size, viewport range, and scaling ratios. Choose units and configure colors for different button states.</p>
+                                    <p style="margin: 0; font-size: var(--fs-md) !important; line-height: var(--lh-normal);">Set your base size, viewport range, and scaling ratios. Choose units and configure colors for different button states.</p>
                                 </div>
                                 <div>
                                     <h4 style="color: var(--clr-secondary); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0 0 8px 0;">2. Design Button Sizes</h4>
-                                    <p style="margin: 0; font-size: var(--fs-xs); line-height: var(--lh-normal);">Edit button properties directly in each card - click any value to modify it. Colors and states can be changed per button.</p>
+                                    <p style="margin: 0; font-size: var(--fs-md) !important; line-height: var(--lh-normal);">Edit button properties directly in each card - click any value to modify it. Colors and states can be changed per button.</p>
                                 </div>
                                 <div>
                                     <h4 style="color: var(--clr-secondary); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0 0 8px 0;">3. Preview Buttons</h4>
-                                    <p style="margin: 0; font-size: var(--fs-xs); line-height: var(--lh-normal);">See live previews showing how your buttons will look at different screen sizes and in all four states: Normal, Hover, Active, and Disabled.</p>
+                                    <p style="margin: 0; font-size: var(--fs-md) !important; line-height: var(--lh-normal);">See live previews showing how your buttons will look at different screen sizes and in all four states: Normal, Hover, Active, and Disabled.</p>
                                 </div>
                                 <div>
                                     <h4 style="color: var(--clr-secondary); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0 0 8px 0;">4. Generate CSS</h4>
-                                    <p style="margin: 0; font-size: var(--fs-xs); line-height: var(--lh-normal);">Copy responsive CSS with clamp() functions ready to use in your projects. Available as classes or CSS custom properties.</p>
+                                    <p style="margin: 0; font-size: var(--fs-md) !important; line-height: var(--lh-normal);">Copy responsive CSS with clamp() functions ready to use in your projects. Available as classes or CSS custom properties.</p>
                                 </div>
                             </div>
 
                             <div style="background: var(--clr-card-bg); padding: var(--sp-3) 16px; border-radius: var(--br-lg); border: var(--border-thin) solid var(--clr-secondary); margin: var(--sp-4) 10rem; text-align: center;">
-                                <h4 style="color: var(--clr-primary); font-size: var(--fs-sm); font-weight: var(--fw-semibold); margin: 0 0 6px 0;">💡 Pro Tip</h4>
-                                <p style="margin: 0; font-size: var(--fs-xs); color: var(--clr-txt);">All editing is now inline - just click on any value to change it. Button names can be edited by clicking the name in the header.</p>
+                                <h4 style="color: var(--clr-primary); font-size: var(--fs-md) !important; font-weight: var(--fw-semibold); margin: 0 0 6px 0;">💡 Pro Tip</h4>
+                                <p style="margin: 0; font-size: var(--fs-md) !important; color: var(--clr-txt);">All editing is now inline - just click on any value to change it. Button names can be edited by clicking the name in the header.</p>
                             </div>
                         </div>
                     </div>
@@ -484,10 +486,14 @@ class FluidButtonForge
 
             <!-- Full-Width Preview Section -->
             <div class="full-width-styling">
-                <div class="major-panel-content">
-                    <div class="fcc-preview-header-row">
-                        <h2 style="color: var(--clr-primary); margin: 0;">Button Preview</h2>
-                    </div>
+                <div>
+                    <button class="fbf-info-toggle expanded" data-toggle-target="preview-content">
+                        <span style="color: var(--clr-header-text) !important;">Button Preview</span>
+                        <span class="fbf-toggle-icon" style="color: var(--clr-header-text) !important;">▼</span>
+                    </button>
+                </div>
+                <div class="collapsible-text expanded" id="preview-content">
+                    <div class="major-panel-content">
 
                     <div class="fcc-preview-grid">
                         <div class="fcc-preview-column">
@@ -516,22 +522,21 @@ class FluidButtonForge
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Selected Button CSS Panel -->
             <div class="full-width-styling" style="margin-top: 20px;">
-                <div class="major-panel-content" id="selected-css-container">
-                    <div class="fcc-css-header">
-                        <h2 style="flex-grow: 1;" id="selected-code-title">Selected Button CSS</h2>
-                        <div class="fcc-css-buttons" id="selected-copy-buttons">
-                            <button id="copy-selected-btn" class="fcc-copy-btn"
-                                data-tooltip="Copy selected button CSS to clipboard"
-                                title="Copy Selected CSS">
-                                <span class="copy-icon">📋</span> copy selected
-                            </button>
-                        </div>
+                <div class="fcc-css-header">
+                    <h2 id="selected-code-title">Selected Button CSS</h2>
+                    <div class="fcc-css-buttons" id="selected-copy-buttons">
+                        <button id="copy-selected-btn" class="fcc-copy-btn"
+                            data-tooltip="Copy selected button CSS to clipboard"
+                            title="Copy Selected CSS">copy</button>
                     </div>
+                </div>
+                <div class="major-panel-content" id="selected-css-container">
                     <div style="background: white; border-radius: var(--br-md); padding: 8px; border: var(--border-thin) solid var(--clr-gray-300); overflow: auto; max-height: 300px;">
                         <pre id="selected-code" style="font-size: var(--fs-xs); white-space: pre-wrap; color: var(--clr-gray-900); margin: 0;">/* Click a button card to select it and view its CSS */</pre>
                     </div>
@@ -540,17 +545,15 @@ class FluidButtonForge
 
             <!-- Full Width CSS Output Containers -->
             <div class="full-width-styling" style="margin-top: 20px;">
-                <div class="major-panel-content" id="generated-css-container">
-                    <div class="fcc-css-header">
-                        <h2 style="flex-grow: 1;" id="generated-code-title">Generated CSS (All Button Classes)</h2>
-                        <div class="fcc-css-buttons" id="generated-copy-buttons">
-                            <button id="copy-all-btn" class="fcc-copy-btn"
-                                data-tooltip="Copy all generated CSS to clipboard"
-                                title="Copy All CSS">
-                                <span class="copy-icon">📋</span> copy all
-                            </button>
-                        </div>
+                <div class="fcc-css-header">
+                    <h2 id="generated-code-title">Generated CSS (All Button Classes)</h2>
+                    <div class="fcc-css-buttons" id="generated-copy-buttons">
+                        <button id="copy-all-btn" class="fcc-copy-btn"
+                            data-tooltip="Copy all generated CSS to clipboard"
+                            title="Copy All CSS">copy all</button>
                     </div>
+                </div>
+                <div class="major-panel-content" id="generated-css-container">
                     <div style="background: white; border-radius: var(--br-md); padding: 8px; border: var(--border-thin) solid var(--clr-gray-300); overflow: auto; max-height: 400px;">
                         <pre id="generated-code" style="font-size: var(--fs-xs); white-space: pre-wrap; color: var(--clr-gray-900); margin: 0;">/* Loading CSS output... */</pre>
                     </div>

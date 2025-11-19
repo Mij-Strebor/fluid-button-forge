@@ -27,8 +27,9 @@ Styleguide: Layout.Container
 .main-panel-container,
 .full-width-styling,
 .about-panel-container {
-    width: var(--container-max);
-    margin: 0 auto;
+    max-width: 1280px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
 /*
@@ -52,13 +53,35 @@ Styleguide: Layout.PanelContainers
     margin: var(--sp-6) 0;  /* Positioned by forge-header.css via .fbf-info-toggle-section */
 }
 
+.main-panel-container {
+    padding: 36px !important;  /* Standard panel padding */
+    margin-top: var(--sp-6) !important;
+    margin-bottom: 0 !important;
+}
+
 .full-width-styling {
-    margin-bottom: var(--sp-6);
+    margin-top: var(--sp-6) !important;
+    margin-bottom: var(--sp-6) !important;
+    box-sizing: border-box !important;
+}
+
+.major-panel-header {
+    width: 100%;
+    padding: var(--sp-5) var(--sp-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--clr-secondary);
+    cursor: default;
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-lg);
+    border-radius: var(--br-lg) var(--br-lg) 0 0;
 }
 
 .major-panel-content {
     padding: var(--sp-5);
     background: var(--clr-light);
+    border-radius: 0 0 var(--br-lg) var(--br-lg);
 }
 
 /* ============================================================================
