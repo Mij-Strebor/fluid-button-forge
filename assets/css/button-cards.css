@@ -45,7 +45,6 @@ Styleguide: ButtonCards.Card
     background: var(--clr-white);
     display: block;
     position: static;
-    width: 100%;
     box-sizing: border-box;
     cursor: pointer;
     transition: var(--transition-base);
@@ -60,12 +59,6 @@ Styleguide: ButtonCards.Card
     border-color: var(--clr-accent);
     box-shadow: 0 0 0 3px rgba(244, 197, 66, 0.3), var(--shadow-lg);
     transform: translateY(-2px);
-}
-
-@media (min-width: 1024px) {
-    .button-card {
-        width: calc(50% - 12px);
-    }
 }
 
 .fbf-panel [style*="gap: 24px"] > .button-card {
@@ -141,32 +134,7 @@ Styleguide: ButtonCards.ActionButtons
     gap: var(--sp-2);
 }
 
-.card-action-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: var(--border-thin) solid rgba(255, 255, 255, 0.3);
-    color: var(--clr-header-text);
-    padding: var(--sp-2) 12px;
-    border-radius: var(--br-sm);
-    cursor: pointer;
-    font-size: var(--fs-sm);
-    transition: var(--transition-base);
-    font-weight: var(--fw-medium);
-    font-family: var(--font-family);
-}
-
-.card-action-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
-}
-
-.card-action-btn.card-delete-btn {
-    background: rgba(220, 53, 69, 0.8);
-    border: var(--border-thin) solid rgba(220, 53, 69, 1);
-}
-
-.card-action-btn.card-delete-btn:hover {
-    background: rgba(220, 53, 69, 0.9);
-}
+/* Card action buttons now use fbf-btn classes for consistent styling */
 
 /* ============================================================================
    BUTTON CARD CONTENT

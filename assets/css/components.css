@@ -90,35 +90,39 @@ Styleguide: Components.Buttons
 /*
 Button - Primary Action
 
-Blue button for important primary actions
+Gold button for important primary actions (same as default but explicit)
 
 Styleguide: Components.Buttons.Primary
 */
 .fbf-btn-primary {
-    background: var(--clr-info);
-    color: var(--clr-white);
-    border-color: var(--clr-info);
+    background: var(--clr-accent);
+    color: var(--clr-btn-txt);
+    border: none;
 }
 
 .fbf-btn-primary:hover {
-    background: var(--clr-info-dark);
+    background: var(--clr-btn-hover);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
 }
 
 /*
 Button - Danger
 
-Red button for destructive actions (delete, remove, clear)
+Gold button for destructive actions (delete, remove, clear) - same styling as default
 
 Styleguide: Components.Buttons.Danger
 */
 .fbf-btn-danger {
-    background: var(--clr-danger);
-    color: var(--clr-white);
-    border-color: var(--clr-danger-dark);
+    background: var(--clr-accent);
+    color: var(--clr-btn-txt);
+    border: none;
 }
 
 .fbf-btn-danger:hover {
-    background: var(--clr-danger-dark);
+    background: var(--clr-btn-hover);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
 }
 
 /*

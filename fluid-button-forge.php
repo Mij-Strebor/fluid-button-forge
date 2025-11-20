@@ -470,7 +470,7 @@ class FluidButtonForge
                 </div>
 
                 <!-- Button Classes Panel -->
-                <div class="fcc-main-grid" style="grid-template-columns: 1fr;">
+                <div class="fcc-main-grid" style="grid-template-columns: 1fr 1fr;">
                     <div>
                         <div class="fcc-panel" id="sizes-table-container">
                             <div id="sizes-table-wrapper">
@@ -1570,46 +1570,63 @@ class FluidButtonForge
 
                 let css = '';
 
-                // Generate main class CSS
-                const properties = ['width', 'height', 'paddingX', 'paddingY', 'fontSize', 'borderRadius', 'borderWidth'];
+                // Calculate clamp functions for all properties
+                const widthCalc = calculateButtonProperty(button.id, 'width', settings);
+                const heightCalc = calculateButtonProperty(button.id, 'height', settings);
+                const paddingXCalc = calculateButtonProperty(button.id, 'paddingX', settings);
+                const paddingYCalc = calculateButtonProperty(button.id, 'paddingY', settings);
+                const fontSizeCalc = calculateButtonProperty(button.id, 'fontSize', settings);
+                const borderRadiusCalc = calculateButtonProperty(button.id, 'borderRadius', settings);
+                const borderWidthCalc = calculateButtonProperty(button.id, 'borderWidth', settings);
+
+                const widthClamp = generateClampFunction(widthCalc.min, widthCalc.max, minVp, maxVp, unitType);
+                const heightClamp = generateClampFunction(heightCalc.min, heightCalc.max, minVp, maxVp, unitType);
+                const paddingXClamp = generateClampFunction(paddingXCalc.min, paddingXCalc.max, minVp, maxVp, unitType);
+                const paddingYClamp = generateClampFunction(paddingYCalc.min, paddingYCalc.max, minVp, maxVp, unitType);
+                const fontSizeClamp = generateClampFunction(fontSizeCalc.min, fontSizeCalc.max, minVp, maxVp, unitType);
+                const borderRadiusClamp = generateClampFunction(borderRadiusCalc.min, borderRadiusCalc.max, minVp, maxVp, unitType);
+                const borderWidthClamp = generateClampFunction(borderWidthCalc.min, borderWidthCalc.max, minVp, maxVp, unitType);
+
+                // Generate main class CSS with proper order
                 let classCSS = `.${button.className} {\n`;
 
-                properties.forEach(prop => {
-                    const calc = calculateButtonProperty(button.id, prop, settings);
-                    const clampFunction = generateClampFunction(calc.min, calc.max, minVp, maxVp, unitType);
+                // 1. display
+                classCSS += `  display: inline-flex;\n`;
 
-                    let cssProp;
-                    switch (prop) {
-                        case 'paddingX':
-                            cssProp = 'padding-left';
-                            classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                            cssProp = 'padding-right';
-                            classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                            break;
-                        case 'paddingY':
-                            cssProp = 'padding-top';
-                            classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                            cssProp = 'padding-bottom';
-                            classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                            break;
-                        case 'fontSize':
-                            cssProp = 'font-size';
-                            classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                            break;
-                        case 'borderRadius':
-                            cssProp = 'border-radius';
-                            classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                            break;
-                        case 'borderWidth':
-                            if (button[prop] > 0) {
-                                cssProp = 'border-width';
-                                classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                            }
-                            break;
-                        default:
-                            classCSS += `  ${prop}: ${clampFunction};\n`;
-                    }
-                });
+                // 2-3. height, width
+                classCSS += `  height: ${heightClamp};\n`;
+                classCSS += `  width: ${widthClamp};\n`;
+
+                // 4-5. align-items, justify-content
+                classCSS += `  align-items: center;\n`;
+                classCSS += `  justify-content: center;\n`;
+
+                // 6-8. background, color, border (added in state variations)
+
+                // 9. border-radius
+                classCSS += `  border-radius: ${borderRadiusClamp};\n`;
+
+                // 10. padding
+                classCSS += `  padding-left: ${paddingXClamp};\n`;
+                classCSS += `  padding-right: ${paddingXClamp};\n`;
+                classCSS += `  padding-top: ${paddingYClamp};\n`;
+                classCSS += `  padding-bottom: ${paddingYClamp};\n`;
+
+                // 11. font-size
+                classCSS += `  font-size: ${fontSizeClamp};\n`;
+
+                // 12-14. font-weight, font-style, text-transform
+                classCSS += `  font-weight: 600;\n`;
+                classCSS += `  font-style: normal;\n`;
+                classCSS += `  text-transform: none;\n`;
+
+                // 15-16. letter-spacing, cursor
+                classCSS += `  letter-spacing: 0.5px;\n`;
+                classCSS += `  cursor: pointer;\n`;
+
+                // 17-18. transition, box-shadow
+                classCSS += `  transition: all 0.3s ease;\n`;
+                classCSS += `  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n`;
 
                 classCSS += '}\n\n';
                 css += classCSS;
@@ -1624,16 +1641,15 @@ class FluidButtonForge
 
                     let stateCSS = `${stateClass} {\n`;
 
-                    // Background (simplified - no gradients)
+                    // 6. background
                     stateCSS += `  background: ${stateColors.background};\n`;
 
-                    // Text color
+                    // 7. color
                     stateCSS += `  color: ${stateColors.text};\n`;
 
-                    // Border
+                    // 8. border
                     if (stateColors.useBorder && button.borderWidth > 0) {
-                        stateCSS += `  border-color: ${stateColors.border};\n`;
-                        stateCSS += `  border-style: solid;\n`;
+                        stateCSS += `  border: solid ${stateColors.border};\n`;
                     } else {
                         stateCSS += `  border: none;\n`;
                     }
@@ -2051,43 +2067,63 @@ class FluidButtonForge
                 let css = '';
 
                 sizes.forEach(size => {
-                    const properties = ['width', 'height', 'paddingX', 'paddingY', 'fontSize', 'borderRadius', 'borderWidth'];
+                    // Calculate clamp functions for all properties
+                    const widthCalc = calculateButtonProperty(size.id, 'width', settings);
+                    const heightCalc = calculateButtonProperty(size.id, 'height', settings);
+                    const paddingXCalc = calculateButtonProperty(size.id, 'paddingX', settings);
+                    const paddingYCalc = calculateButtonProperty(size.id, 'paddingY', settings);
+                    const fontSizeCalc = calculateButtonProperty(size.id, 'fontSize', settings);
+                    const borderRadiusCalc = calculateButtonProperty(size.id, 'borderRadius', settings);
+                    const borderWidthCalc = calculateButtonProperty(size.id, 'borderWidth', settings);
+
+                    const widthClamp = generateClampFunction(widthCalc.min, widthCalc.max, minVp, maxVp, unitType);
+                    const heightClamp = generateClampFunction(heightCalc.min, heightCalc.max, minVp, maxVp, unitType);
+                    const paddingXClamp = generateClampFunction(paddingXCalc.min, paddingXCalc.max, minVp, maxVp, unitType);
+                    const paddingYClamp = generateClampFunction(paddingYCalc.min, paddingYCalc.max, minVp, maxVp, unitType);
+                    const fontSizeClamp = generateClampFunction(fontSizeCalc.min, fontSizeCalc.max, minVp, maxVp, unitType);
+                    const borderRadiusClamp = generateClampFunction(borderRadiusCalc.min, borderRadiusCalc.max, minVp, maxVp, unitType);
+                    const borderWidthClamp = generateClampFunction(borderWidthCalc.min, borderWidthCalc.max, minVp, maxVp, unitType);
+
+                    // Generate main class CSS with proper order
                     let classCSS = `.${size.className} {\n`;
 
-                    properties.forEach(prop => {
-                        const calc = calculateButtonProperty(size.id, prop, settings);
-                        const clampFunction = generateClampFunction(calc.min, calc.max, minVp, maxVp, unitType);
+                    // 1. display
+                    classCSS += `  display: inline-flex;\n`;
 
-                        let cssProp;
-                        switch (prop) {
-                            case 'paddingX':
-                                cssProp = 'padding-left';
-                                classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                                cssProp = 'padding-right';
-                                classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                                break;
-                            case 'paddingY':
-                                cssProp = 'padding-top';
-                                classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                                cssProp = 'padding-bottom';
-                                classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                                break;
-                            case 'fontSize':
-                                cssProp = 'font-size';
-                                classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                                break;
-                            case 'borderRadius':
-                                cssProp = 'border-radius';
-                                classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                                break;
-                            case 'borderWidth':
-                                cssProp = 'border-width';
-                                classCSS += `  ${cssProp}: ${clampFunction};\n`;
-                                break;
-                            default:
-                                classCSS += `  ${prop}: ${clampFunction};\n`;
-                        }
-                    });
+                    // 2-3. height, width
+                    classCSS += `  height: ${heightClamp};\n`;
+                    classCSS += `  width: ${widthClamp};\n`;
+
+                    // 4-5. align-items, justify-content
+                    classCSS += `  align-items: center;\n`;
+                    classCSS += `  justify-content: center;\n`;
+
+                    // 6-8. background, color, border (added in state variations)
+
+                    // 9. border-radius
+                    classCSS += `  border-radius: ${borderRadiusClamp};\n`;
+
+                    // 10. padding
+                    classCSS += `  padding-left: ${paddingXClamp};\n`;
+                    classCSS += `  padding-right: ${paddingXClamp};\n`;
+                    classCSS += `  padding-top: ${paddingYClamp};\n`;
+                    classCSS += `  padding-bottom: ${paddingYClamp};\n`;
+
+                    // 11. font-size
+                    classCSS += `  font-size: ${fontSizeClamp};\n`;
+
+                    // 12-14. font-weight, font-style, text-transform
+                    classCSS += `  font-weight: 600;\n`;
+                    classCSS += `  font-style: normal;\n`;
+                    classCSS += `  text-transform: none;\n`;
+
+                    // 15-16. letter-spacing, cursor
+                    classCSS += `  letter-spacing: 0.5px;\n`;
+                    classCSS += `  cursor: pointer;\n`;
+
+                    // 17-18. transition, box-shadow
+                    classCSS += `  transition: all 0.3s ease;\n`;
+                    classCSS += `  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n`;
 
                     classCSS += '}\n\n';
 
@@ -2101,19 +2137,18 @@ class FluidButtonForge
 
                         let stateCSS = `${stateClass} {\n`;
 
-                        // Background (simplified - no gradients)
+                        // 6. background
                         stateCSS += `  background: ${stateColors.background};\n`;
 
-                        // Text color
+                        // 7. color
                         stateCSS += `  color: ${stateColors.text};\n`;
 
-                        // Border  
+                        // 8. border
                         const buttonItem = sizes.find(s => s.className === size.className);
                         const hasBorderWidth = buttonItem && buttonItem.borderWidth > 0;
 
                         if (stateColors.useBorder && hasBorderWidth) {
-                            stateCSS += `  border-color: ${stateColors.border};\n`;
-                            stateCSS += `  border-style: solid;\n`;
+                            stateCSS += `  border: solid ${stateColors.border};\n`;
                         } else {
                             stateCSS += `  border: none;\n`;
                         }
@@ -2248,8 +2283,8 @@ return `
                                     <input type="checkbox" id="autosave-toggle" checked data-tooltip="Toggle automatic saving of your button settings">
                                     <span>Autosave</span>
                                 </label>
-                                <button id="save-btn" class="fcc-btn" data-tooltip="Save all current settings and designs to database">
-                                    Save
+                                <button id="save-btn" class="fbf-btn fbf-btn-primary" data-tooltip="Save all current settings and designs to database">
+                                    save
                                 </button>
                                 <div id="autosave-status" class="autosave-status idle">
                                     <span id="autosave-icon">💾</span>
@@ -2258,8 +2293,8 @@ return `
                             </div>
                             
                             <div class="fcc-table-buttons" style="flex: 0 0 auto;">
-                                <button id="reset-defaults" class="fcc-btn">reset</button>
-                                <button id="clear-sizes" class="fcc-btn fcc-btn-danger">clear all</button>
+                                <button id="reset-defaults" class="fbf-btn">reset</button>
+                                <button id="clear-sizes" class="fbf-btn fbf-btn-danger">clear all</button>
                             </div>
                         </div>
 
@@ -2313,8 +2348,8 @@ return `
                                 <input type="checkbox" id="autosave-toggle" checked data-tooltip="Toggle automatic saving of your button settings">
                                 <span>Autosave</span>
                             </label>
-                            <button id="save-btn" class="fcc-btn" data-tooltip="Save all current settings and designs to database">
-                                Save
+                            <button id="save-btn" class="fbf-btn fbf-btn-primary" data-tooltip="Save all current settings and designs to database">
+                                save
                             </button>
                             <div id="autosave-status" class="autosave-status idle">
                                 <span id="autosave-icon">💾</span>
@@ -2323,13 +2358,13 @@ return `
                         </div>
                         
                         <div class="fcc-table-buttons" style="flex: 0 0 auto;">
-                            <button id="reset-defaults" class="fcc-btn">reset</button>
-                            <button id="clear-sizes" class="fcc-btn fcc-btn-danger">clear all</button>
+                            <button id="reset-defaults" class="fbf-btn">reset</button>
+                            <button id="clear-sizes" class="fbf-btn fbf-btn-danger">clear all</button>
                         </div>
                     </div>
 
                     <div>
-                        <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--sp-6);">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px;">
                             ${sizes.map(size => `
                                 <div class="button-card" data-id="${size.id}">
                                     <!-- Button Card Header -->
@@ -2340,8 +2375,8 @@ return `
                                         </div>
                                         
                                     <div class="card-action-buttons">
-                                            <button class="card-action-btn" data-id="${size.id}">📋 duplicate</button>
-                                            <button class="card-action-btn card-delete-btn" data-id="${size.id}">🗑️ delete</button>
+                                            <button class="card-action-btn fbf-btn" data-id="${size.id}">duplicate</button>
+                                            <button class="card-action-btn card-delete-btn fbf-btn fbf-btn-danger" data-id="${size.id}">delete</button>
                                         </div>
                                     </div>
                                     
