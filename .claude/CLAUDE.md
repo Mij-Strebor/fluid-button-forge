@@ -16,7 +16,7 @@
 - **Plugin name:** Fluid Button Forge
 - **Acronym / folder:** `fbf` → `E:\projects\plugins\fbf`
 - **Version:** v1.0.0
-- **GitHub:** (not yet published)
+- **GitHub:** https://github.com/Mij-Strebor/fluid-button-forge
 - **Text domain:** `fluid-button-forge`
 - **Admin page slug:** `fluid-button-forge`
 - **Required capability:** `manage_options`
