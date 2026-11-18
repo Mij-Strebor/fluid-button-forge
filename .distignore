@@ -1,0 +1,13 @@
+.claude/
+.distignore
+.gitignore
+.phpcs.xml
+CLAUDE.md
+RECOVERY-LOG.md
+docs/
+dev-docs/
+vendor/
+tests/
+composer.json
+composer.lock
+.wordpress-org/

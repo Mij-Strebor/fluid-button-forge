@@ -62,4 +62,4 @@ Paste the copied CSS into your theme's stylesheet or Elementor's custom CSS fiel
 
 ---
 
-That's the core workflow. For the full settings reference, color system details, and every control on the page, see **USER-MANUAL.md**.
+That's the core workflow. For the full settings reference, color system details, and every control on the page, see the [User Manual](user-manual.md).

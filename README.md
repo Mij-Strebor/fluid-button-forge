@@ -229,15 +229,15 @@ This project is licensed under the GPL-2.0+ License - see the LICENSE file for d
 
 ## Documentation
 
-- 📘 **[User Manual](USER-MANUAL.md)** - Comprehensive guide with real-world use cases
-- 📖 **[Quick Start Guide](docs/quick-start.md)** - Get started in 5 minutes *(coming soon)*
+- 📘 **[User Manual](docs/user-manual.md)** - Comprehensive guide with real-world use cases
+- 📖 **[Quick Start Guide](docs/quick-start.md)** - Get started in 5 minutes
 - 🔧 **[Troubleshooting](docs/troubleshooting.md)** - Common issues and solutions *(coming soon)*
 - 💬 **[GitHub Discussions](https://github.com/Mij-Strebor/fluid-font-forge/discussions)** - Ask questions
 
 ## 🆘 Support
 
 - **Issues**: Submit via [GitHub Issues](https://github.com/Mij-Strebor/fluid-button-forge/issues)
-- **Documentation**: [User Manual](USER-MANUAL.md)
+- **Documentation**: [User Manual](docs/user-manual.md)
 - **Email**: jim@jimrforge.com
 
 ## 🗺️ Roadmap
